@@ -1,0 +1,72 @@
+<resources>
+    <string name="app_name">HerbarioUQ</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">HerbarioUQ</string>
+    <string name="nav_header_subtitle"></string>
+    <string name="nav_header_admin">Hola de vuelta administrador</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Settings</string>
+
+    <!--cardView menú principal -->
+    <string name="titulo">HERBARIO UNIQUINDIO</string>
+    <string name="subtitulo">Sesión de Invitados</string>
+
+    <!--Menú principal -->
+    <string name="lista_plantas">Lista de plantas</string>
+    <string name="inicia_sesion">Iniciar sesión</string>
+    <string name="registro">Registrarse</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_loguin_activity">Loguin_activity</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
+    <string name="title_activity_loguin">LoguinActivity</string>
+    <string name="title_activity_login">Iniciar Sesión</string>
+    <string name="lista_plantas_pendiende">Lista plantas pendientes</string>>
+    <string name="gestion_recolectores">Gestionar recolectores</string>
+    <string name="datos">Datos de la cuenta</string>
+    <string name="salir">Salir</string>
+
+    <!-- Strings related to login -->
+    <string name="prompt_usuario">Usuario</string>
+    <string name="prompt_password">Contraseña</string>
+    <string name="action_sign_in">Aceptar</string>
+    <string name="action_registro">Registrarse</string>
+    <string name="action_sign_in_short">Iniciar Sesión</string>
+    <string name="olvido_contrasenia">¿Ha olvidado su contraseña?</string>
+    <!--<string name="error_invalid_email">This email address is invalid</string>
+    <string name="error_invalid_password">This password is too short</string>-->
+    <string name="error_incorrect_password">This password is incorrect</string>
+    <string name="error_field_required">No dejar este campo vacío</string>
+    <string name="permission_rationale">"Contacts permissions are needed for providing email
+        completions."
+    </string>
+
+
+    <string name="title_activity_lista_plantas">Lista de plantas</string>
+    <string name="title_activity_logueado">Herbario UQ</string>
+    <string name="title_activity_gestion_user">Solicitudes de Usuarios</string>
+    <string name="title_activity_datos_usuario">Modificar Datos</string>
+
+    <!--String de detalle planta -->
+    <string name="detalle_genero">Género: </string>
+    <string name="detalle_familia">Familia: </string>
+    <string name="detalle_subfamilia">Subfamiia: </string>
+    <string name="detalle_tribu">Tribu: </string>
+    <string name="detalle_especie">Especie: </string>
+    <string name="detalle_detalle">Detalle: </string>
+    <string name="detalle_autor">Autor: </string>
+
+    <!--Datos de usuario -->
+    <string name="datos_correo">Correo</string>
+    <string name="datos_nombre">Nombre: </string>
+    <string name="datos_apellido">Apellido</string>
+    <string name="datos_telefono">Teléfono</string>
+    <string name="datos_profesion">Profesión</string>
+    <string name="datos_foto">Fotografía</string>
+    <string name="title_activity_plantas_pend">Plantas enviadas</string>
+    <string name="title_activity_detalle_pokemon">Detalle Pokemón</string>
+</resources>

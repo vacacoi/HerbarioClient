@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:card_view="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/resumenListaPlantas"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="6dp"
+        android:padding="8dp"
+
+        card_view:cardCornerRadius="5dp"
+        card_view:cardElevation="7dp">
+
+    <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="15dp">
+
+        <ImageView
+                android:id="@+id/imgPlanta"
+                android:layout_width="120dp"
+                android:layout_height="140dp"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginEnd="16dp"
+                android:src="@drawable/silueta_planta" />
+
+        <TextView
+                android:id="@+id/txtNombre"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_toEndOf="@+id/imgPlanta"
+                android:text="@string/datos_nombre"
+
+                android:textSize="30sp"
+                android:textStyle="bold" />
+
+        <TextView
+                android:id="@+id/txtGenero"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/txtNombre"
+                android:layout_marginTop="5dp"
+                android:layout_toEndOf="@+id/imgPlanta"
+                android:text="@string/detalle_genero"
+                android:textSize="20sp" />
+
+        <Button
+                android:id="@+id/btn_detalle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/txtGenero"
+                android:layout_marginStart="72dp"
+                android:layout_marginTop="14dp"
+                android:layout_toEndOf="@id/txtGenero"
+                android:text="+" />
+
+    </RelativeLayout>
+
+</android.support.v7.widget.CardView>
