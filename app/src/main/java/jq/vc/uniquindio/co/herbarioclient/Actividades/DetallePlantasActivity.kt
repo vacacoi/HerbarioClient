@@ -6,6 +6,7 @@ import android.os.Handler
 import android.support.v7.app.AppCompatActivity;
 import jq.vc.uniquindio.co.herbarioclient.R
 import android.support.v4.view.ViewPager
+import android.util.Log
 
 import jq.vc.uniquindio.co.herbarioclient.vo.ImagenSlider
 
@@ -15,6 +16,11 @@ import java.util.TimerTask;
 import com.viewpagerindicator.CirclePageIndicator
 import jq.vc.uniquindio.co.herbarioclient.util.AdaptadorImagen
 import jq.vc.uniquindio.co.herbarioclient.vo.ListaPlantas
+import kotlinx.android.synthetic.main.activity_detalle_pokemon.*
+import kotlinx.android.synthetic.main.resumen_lista_plantas.*
+
+
+
 
 
 class DetallePlantasActivity : AppCompatActivity() {
@@ -22,6 +28,7 @@ class DetallePlantasActivity : AppCompatActivity() {
     private var mPager: ViewPager? = null
     private var currentPage = 0
     private var NUM_PAGES = 0
+    private var p0:Int?=0
     private lateinit var imageModelArrayList: ArrayList<ImagenSlider>
     lateinit var listaPlantas:ArrayList<ListaPlantas> //Recibe la lista de plantas
 
@@ -40,6 +47,19 @@ class DetallePlantasActivity : AppCompatActivity() {
         setContentView(R.layout.activity_detalle_pokemon)
 
         getSupportActionBar()!!.setDisplayHomeAsUpEnabled(true);
+        listaPlantas =intent.getSerializableExtra("lista") as ArrayList<ListaPlantas> //Recibe la lista de obtetos de lista de plantas
+        p0 = intent.extras.getInt("p0")//Recibe la posición en la cual se oprimio el botón para ver detallado de plantas
+
+
+        textNombreDet.text = " "+listaPlantas.get(p0!!).nombre
+        textGeneroDet.text = " "+listaPlantas.get(p0!!).genero
+        textFamiliaDet.text = " "+listaPlantas.get(p0!!).familia
+        textSubFamiliaDet.text = " "+listaPlantas.get(p0!!).subfamilia
+        textTribuDet.text = " "+listaPlantas.get(p0!!).tribu
+        textEspecieDet.text = " "+listaPlantas.get(p0!!).especie
+        textDetalleDet.text = " "+listaPlantas.get(p0!!).detalle
+        textAutorDet.text = " "+listaPlantas.get(p0!!).autor
+
 
         imageModelArrayList = ArrayList()
         imageModelArrayList = populateList()

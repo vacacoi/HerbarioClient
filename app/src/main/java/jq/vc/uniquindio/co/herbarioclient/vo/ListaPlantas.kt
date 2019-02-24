@@ -2,8 +2,9 @@ package jq.vc.uniquindio.co.herbarioclient.vo
 
 import android.os.Parcel
 import android.os.Parcelable
+import java.io.Serializable
 
-class ListaPlantas() : Parcelable {
+class ListaPlantas() : Parcelable,Serializable {
 
     var nombre: String? = null
     var genero: String? = null

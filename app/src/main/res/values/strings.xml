@@ -4,7 +4,7 @@
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="nav_header_title">HerbarioUQ</string>
     <string name="nav_header_subtitle"></string>
-    <string name="nav_header_admin">Hola de vuelta administrador</string>
+    <string name="nav_header_admin">Hola de vuelta recolector</string>
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Settings</string>
 
@@ -25,8 +25,8 @@
     <string name="title_notifications">Notifications</string>
     <string name="title_activity_loguin">LoguinActivity</string>
     <string name="title_activity_login">Iniciar Sesión</string>
-    <string name="lista_plantas_pendiende">Lista plantas pendientes</string>>
-    <string name="gestion_recolectores">Gestionar recolectores</string>
+    <string name="ingresar_planta">Ingresar planta</string>>
+    <string name="plantas_ingresadas">Lista plantas ingresadas</string>
     <string name="datos">Datos de la cuenta</string>
     <string name="salir">Salir</string>
 
@@ -52,21 +52,33 @@
     <string name="title_activity_datos_usuario">Modificar Datos</string>
 
     <!--String de detalle planta -->
-    <string name="detalle_genero">Género: </string>
-    <string name="detalle_familia">Familia: </string>
-    <string name="detalle_subfamilia">Subfamiia: </string>
-    <string name="detalle_tribu">Tribu: </string>
-    <string name="detalle_especie">Especie: </string>
-    <string name="detalle_detalle">Detalle: </string>
-    <string name="detalle_autor">Autor: </string>
+    <string name="detalle_genero">Género:</string>
+    <string name="detalle_familia">Familia:</string>
+    <string name="detalle_subfamilia">Subfamiia:</string>
+    <string name="detalle_tribu">Tribu:</string>
+    <string name="detalle_especie">Especie:</string>
+    <string name="detalle_detalle">Detalle:</string>
+    <string name="detalle_autor">Autor:</string>
 
     <!--Datos de usuario -->
     <string name="datos_correo">Correo</string>
-    <string name="datos_nombre">Nombre: </string>
+    <string name="datos_nombre">Nombre:</string>
     <string name="datos_apellido">Apellido</string>
     <string name="datos_telefono">Teléfono</string>
     <string name="datos_profesion">Profesión</string>
     <string name="datos_foto">Fotografía</string>
     <string name="title_activity_plantas_pend">Plantas enviadas</string>
     <string name="title_activity_detalle_pokemon">Detalle Pokemón</string>
+    <!-- Strings related to login -->
+    <string name="prompt_email">Email</string>
+    <string name="error_invalid_email">This email address is invalid</string>
+    <string name="error_invalid_password">This password is too short</string>
+    <string name="title_activity_registro_planta">RegistroPlantaActivity</string>
+
+    <!-- Agregar plantas -->
+    <string name="btn_enviar">Enviar</string>
+    <string name="btn_cancelar">Cancelar</string>
+    <string name="btn_tomar">Tomar Foto</string>
+    <string name="permission_necessary">permisos</string>
+    <string name="storage_permission_is_encessary_to_wrote_event">permisos2</string>
 </resources>

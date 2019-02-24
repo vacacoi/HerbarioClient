@@ -56,12 +56,14 @@ class AdaptadorListaPlantas (fragment: Fragment, var listaPlantas:ArrayList<List
         }
         override fun onClick(v: View?) {
             Log.d("El valor es,","+"+v!!.id)
-            // Log.d("Planta", "Elemento $adapterPosition clickeado ${nombre.text}")
-            // listener.onClickPosition(adapterPosition)
+             Log.d("Planta", "Elemento $adapterPosition clickeado ${nombre.text}")
+            listener.onClickPosition(adapterPosition)
+
 
 
 
         }
+
 
 
 
@@ -71,12 +73,6 @@ class AdaptadorListaPlantas (fragment: Fragment, var listaPlantas:ArrayList<List
         val v = LayoutInflater.from(p0.context)
             .inflate(R.layout.resumen_lista_plantas, p0, false)
 
-        v.btn_detalle.setOnClickListener(object : View.OnClickListener {
-            override fun onClick(p0: View?) {
-                mostrarDetallePlanta()
-            }
-
-        })
         return ListaPlantasViewHolder(v)
     }
 
@@ -86,8 +82,14 @@ class AdaptadorListaPlantas (fragment: Fragment, var listaPlantas:ArrayList<List
 
     override fun onBindViewHolder(p0: ListaPlantasViewHolder, p1: Int) {
 
-
         p0.bindListaPlantas(listaPlantas.get(p1))
+        p0.btnDetalle.setOnClickListener(object : View.OnClickListener {
+            override fun onClick(p0: View?) {
+                mostrarDetallePlanta(p1)
+
+            }
+
+        })
     }
 
     interface OnClickAdaptadorListaPlantas {
@@ -95,15 +97,16 @@ class AdaptadorListaPlantas (fragment: Fragment, var listaPlantas:ArrayList<List
     }
 
     /**
-     * Función que permite lanzar actividad de detalle pokemon
+     * Función que permite lanzar actividad de detalle PALNTAS
      */
 
-    fun mostrarDetallePlanta() {
+    fun mostrarDetallePlanta(p1: Int) {
 
         Log.v("Llega hasta aqui", "Hasta aqui")
 
         val intent = Intent(context, DetallePlantasActivity::class.java)
-        intent.putExtra("Lista plantas",listaPlantas)
+        intent.putExtra("lista",listaPlantas)
+        intent.putExtra("p0",p1)
         context.startActivity(intent)
 
     }

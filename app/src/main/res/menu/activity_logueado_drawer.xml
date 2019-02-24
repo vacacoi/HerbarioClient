@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+      xmlns:tools="http://schemas.android.com/tools"
+      tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+        <item
+                android:id="@+id/lista_plantas_logueado"
+                android:icon="@drawable/ic_assignment_black_24dp"
+                android:title="@string/lista_plantas" />
+        <item
+                android:id="@+id/ingresar_planta"
+                android:icon="@drawable/ic_people_black_24dp"
+                android:title="@string/ingresar_planta" />
+        <item
+                android:id="@+id/plantas_ingresadas"
+                android:icon="@drawable/ic_chrome_reader_mode_black_24dp"
+                android:title="@string/plantas_ingresadas" />
+        <item
+                android:id="@+id/datos_cuenta"
+                android:icon="@drawable/ic_chrome_reader_mode_black_24dp"
+                android:title="@string/datos" />
+        <item
+                android:id="@+id/salir_login"
+                android:icon="@drawable/ic_chrome_reader_mode_black_24dp"
+                android:title="@string/salir" />
+        <!--<item
+             android:id="@+id/nav_manage"
+             android:icon="@drawable/ic_menu_manage"
+             android:title="Tools" />-->
+    </group>
+
+</menu>

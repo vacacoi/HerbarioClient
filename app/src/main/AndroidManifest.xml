@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
           package="jq.vc.uniquindio.co.herbarioclient">
+    <!-- To auto-complete the email text field in the login form with the user's emails -->
+    <uses-permission android:name="android.permission.GET_ACCOUNTS"/>
+    <uses-permission android:name="android.permission.READ_PROFILE"/>
+    <uses-permission android:name="android.permission.READ_CONTACTS"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
             android:allowBackup="true"
@@ -10,9 +16,22 @@
             android:supportsRtl="true"
             android:theme="@style/AppTheme">
         <activity
+                android:name=".Actividades.RegistroPlantaActivity"
+                android:label="@string/title_activity_registro_planta"
+                android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+        <activity
+                android:name=".Actividades.ActivityLogueado"
+                android:label="@string/title_activity_logueado"
+                android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+        <activity
+                android:name=".Actividades.LoginActivity"
+                android:label="@string/title_activity_login">
+        </activity>
+        <activity
                 android:name=".Actividades.DetallePlantasActivity"
-                android:label="@string/title_activity_detalle_pokemon"
-               >
+                android:label="@string/title_activity_detalle_pokemon">
         </activity>
         <activity
                 android:name=".Actividades.ListaPlantasActivity"
@@ -28,6 +47,15 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
+        <provider
+                android:name="android.support.v4.content.FileProvider"
+                android:authorities="jq.vc.uniquindio.co.herbarioclient.fileProvider"
+                android:grantUriPermissions="true"
+                android:exported="false">
+            <meta-data
+                    android:name="android.support.FILE_PROVIDER_PATHS"
+                    android:resource="@xml/provider_paths" />
+        </provider>
     </application>
 
 </manifest>

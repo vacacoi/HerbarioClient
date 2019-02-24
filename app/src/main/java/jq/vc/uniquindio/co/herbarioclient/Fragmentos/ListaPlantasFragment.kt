@@ -14,6 +14,7 @@ import android.app.Activity
 
 import jq.vc.uniquindio.co.herbarioclient.R
 import jq.vc.uniquindio.co.herbarioclient.util.AdaptadorListaPlantas
+import jq.vc.uniquindio.co.herbarioclient.util.ManagerFireBase
 import jq.vc.uniquindio.co.herbarioclient.vo.ListaPlantas
 import kotlinx.android.synthetic.main.fragment_lista_plantas.*
 
@@ -32,6 +33,8 @@ class ListaPlantasFragment : Fragment(),AdaptadorListaPlantas.OnClickAdaptadorLi
     private lateinit var listener: OnPlantaSeleccionadoListener
     var listaPlantas: ArrayList<ListaPlantas> = ArrayList()
     var adaptador: AdaptadorListaPlantas? = null
+
+
 
     interface OnPlantaSeleccionadoListener {
         fun onPlantaSeleccionado(pos: Int)
@@ -88,6 +91,8 @@ class ListaPlantasFragment : Fragment(),AdaptadorListaPlantas.OnClickAdaptadorLi
     override fun onClickPosition(pos: Int) {
         listener!!.onPlantaSeleccionado(pos)
     }
+
+
 
 
 }

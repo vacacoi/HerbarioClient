@@ -1,5 +1,6 @@
 package jq.vc.uniquindio.co.herbarioclient.Actividades
 
+import android.content.Intent
 import android.os.Bundle
 import android.support.design.widget.Snackbar
 import android.support.v7.app.AppCompatActivity;
@@ -12,12 +13,16 @@ import kotlinx.android.synthetic.main.activity_lista_plantas.*
 class ListaPlantasActivity : AppCompatActivity(), ListaPlantasFragment.OnPlantaSeleccionadoListener {
 
 
+    var listaPlantas: ArrayList<ListaPlantas> = ArrayList()
+
+
     override fun onPlantaSeleccionado(pos: Int) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+
+      // listaPlantas[pos]
+
     }
 
 
-    var listaPlantas: ArrayList<ListaPlantas> = ArrayList()
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -27,12 +32,12 @@ class ListaPlantasActivity : AppCompatActivity(), ListaPlantasFragment.OnPlantaS
         getSupportActionBar()!!.setDisplayHomeAsUpEnabled(true);
 
         listaPlantas = ArrayList()
-        listaPlantas.add(ListaPlantas("Flor", "Flor", "Flor", "Flor", "Flor", "Flor", "Flor", "Flor"))
-        listaPlantas.add(ListaPlantas("Flor1", "Flor1", "Flor1", "Flor1", "Flor1", "Flor1", "Flor1", "Flor1"))
-        listaPlantas.add(ListaPlantas("Flor", "Flor", "Flor", "Flor", "Flor", "Flor", "Flor", "Flor"))
-        listaPlantas.add(ListaPlantas("Flor1", "Flor1", "Flor1", "Flor1", "Flor1", "Flor1", "Flor1", "Flor1"))
-        listaPlantas.add(ListaPlantas("Flor", "Flor", "Flor", "Flor", "Flor", "Flor", "Flor", "Flor"))
-        listaPlantas.add(ListaPlantas("Flor1", "Flor1", "Flor1", "Flor1", "Flor1", "Flor1", "Flor1", "Flor1"))
+        listaPlantas.add(ListaPlantas("Flor", "Flor", "Flor", "Flor", "Flor", "Flor", "Flor", "Vic"))
+        listaPlantas.add(ListaPlantas("Flor1", "Flor1", "Flor1", "Flor1", "Flor1", "Flor1", "Flor1", "Yeye"))
+        listaPlantas.add(ListaPlantas("Flor", "Flor", "Flor", "Flor", "Flor", "Flor", "Flor", "Juli"))
+        listaPlantas.add(ListaPlantas("Flor1", "Flor1", "Flor1", "Flor1", "Flor1", "Flor1", "Flor1", "Mamá"))
+        listaPlantas.add(ListaPlantas("Flor", "Flor", "Flor", "Flor", "Flor", "Flor", "Flor", "Ana"))
+        listaPlantas.add(ListaPlantas("Flor1", "Flor1", "Flor1", "Flor1", "Flor1", "Flor1", "Flor1", "Ibg"))
 
         val fragmentLista = supportFragmentManager.findFragmentById(R.id.fragmentoListaPlantas) as ListaPlantasFragment
         fragmentLista.listaPlantas = listaPlantas

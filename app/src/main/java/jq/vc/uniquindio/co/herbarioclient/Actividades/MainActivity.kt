@@ -73,9 +73,9 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 startActivity(intent)
             }
             R.id.inicia_sesion -> {
-              /*  val intent = Intent(this,LoginActivity::class.java)
+               val intent = Intent(this,LoginActivity::class.java)
                 intent.putExtra("Iniciar Sesion","1")
-                startActivity(intent)*/
+                startActivity(intent)
 
             }
             R.id.registro -> {
