@@ -62,7 +62,7 @@ class ManagerFireBase private constructor() {
 
     fun insetarConLLave(listaPlantas: ListaPlantas): String {
 
-        dataRef!!.child(llave()).setValue(listaPlantas)
+        dataRef!!.child(llave()).child("plantas").setValue(listaPlantas)
         return llave()
     }
 
@@ -94,7 +94,7 @@ class ManagerFireBase private constructor() {
                 OnSuccessListener<Uri> { uri ->
                     Log.d("Holaa", "onSuccess: uri= $uri")
 
-                    dataRef!!.database.reference.child(llave).child("urlImagen").setValue(uri.toString())
+                    dataRef!!.database.reference.child(llave).child("plantas").child("urlImagen").setValue(uri.toString())
                 })
         })
 
@@ -132,8 +132,11 @@ class ManagerFireBase private constructor() {
 
     fun listaPlantas(): ArrayList<ListaPlantas> {
 
+
+
+        Log.d("hola","="+dataRef!!.orderByKey().equalTo("plantas")+"----"+dataRef!!.orderByKey())
         var listaPlantas: ArrayList<ListaPlantas> = ArrayList()
-        dataRef!!.orderByKey().addValueEventListener(object : ValueEventListener {
+        dataRef!!.orderByKey().equalTo("plantas").addValueEventListener(object : ValueEventListener {
             override fun onCancelled(p0: DatabaseError) {
                 TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
             }
@@ -141,6 +144,7 @@ class ManagerFireBase private constructor() {
             override fun onDataChange(p0: DataSnapshot) {
                 p0.getValue(ListaPlantas::class.java)
                 for (snapshot in p0.getChildren()) {
+
                     val listaplanta = snapshot.getValue(ListaPlantas::class.java)
                     if (listaplanta != null) {
                         listener.actualizarAdaptador(listaplanta)

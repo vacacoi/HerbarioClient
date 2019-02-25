@@ -36,8 +36,8 @@
             <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="186dp"
-                    android:layout_gravity="center"
-                    android:src="@drawable/herbario_uq" />
+                    android:layout_gravity="center"/>
+                   <!-- android:src="@drawable/herbario_uq"-->
 
             <android.support.design.widget.TextInputLayout
                     android:layout_width="match_parent"

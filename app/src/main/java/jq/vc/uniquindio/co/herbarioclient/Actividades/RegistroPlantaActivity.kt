@@ -75,9 +75,6 @@ class RegistroPlantaActivity : AppCompatActivity() {
         btn_enviar.setOnClickListener(object : View.OnClickListener {
             override fun onClick(p0: View?) {
 
-
-
-
                 listaPlantas = ArrayList()
                 agregarPlanta(
                     ListaPlantas(
