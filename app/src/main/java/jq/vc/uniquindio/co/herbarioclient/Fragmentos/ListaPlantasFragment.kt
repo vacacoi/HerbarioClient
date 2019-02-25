@@ -27,13 +27,19 @@ private const val ARG_PARAM2 = "param2"
  * A simple [Fragment] subclass.
  *
  */
-class ListaPlantasFragment : Fragment(),AdaptadorListaPlantas.OnClickAdaptadorListaPlantas {
+class ListaPlantasFragment : Fragment(),AdaptadorListaPlantas.OnClickAdaptadorListaPlantas,ManagerFireBase.onActualizarAdaptador {
+
+
+
+    override fun actualizarAdaptador(listaPlantas: ListaPlantas) {
+        agregarPlantas(listaPlantas)
+    }
 
 
     private lateinit var listener: OnPlantaSeleccionadoListener
     var listaPlantas: ArrayList<ListaPlantas> = ArrayList()
     var adaptador: AdaptadorListaPlantas? = null
-
+    lateinit var managerFireBase: ManagerFireBase
 
 
     interface OnPlantaSeleccionadoListener {
@@ -80,6 +86,10 @@ class ListaPlantasFragment : Fragment(),AdaptadorListaPlantas.OnClickAdaptadorLi
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
+        managerFireBase = ManagerFireBase.managerInstance
+        managerFireBase.listener = this
+        managerFireBase.listaPlantas()
+
         adaptador = AdaptadorListaPlantas(this,listaPlantas,activity!!.baseContext)
         listaPlantas_view.adapter = this.adaptador
         listaPlantas_view.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, true)
@@ -90,6 +100,11 @@ class ListaPlantasFragment : Fragment(),AdaptadorListaPlantas.OnClickAdaptadorLi
 
     override fun onClickPosition(pos: Int) {
         listener!!.onPlantaSeleccionado(pos)
+    }
+
+    fun agregarPlantas(listaPlanta: ListaPlantas) {
+        listaPlantas.add(listaPlanta)
+        adaptador!!.notifyItemChanged(0)
     }
 
 

@@ -15,6 +15,7 @@ class ListaPlantas() : Parcelable,Serializable {
     var detalle: String? = null
     var autor: String? = null
     var estado: String? = null
+    var urlImagen: String?=null
 
     constructor(parcel: Parcel) : this() {
         nombre = parcel.readString()
@@ -25,6 +26,7 @@ class ListaPlantas() : Parcelable,Serializable {
         especie = parcel.readString()
         detalle = parcel.readString()
         autor = parcel.readString()
+        urlImagen = parcel.readString()
 
     }
 
@@ -45,7 +47,7 @@ class ListaPlantas() : Parcelable,Serializable {
     }
 
     constructor(nombre: String?,genero: String?,familia: String?,subfamilia: String?, tribu: String?, especie: String?,
-                detalle: String?,autor: String?, estado:String?) : this() {
+                detalle: String?,autor: String?, estado:String?,urlImagen: String?) : this() {
 
         this.nombre = nombre
         this.genero = genero
@@ -56,6 +58,7 @@ class ListaPlantas() : Parcelable,Serializable {
         this.detalle = detalle
         this.autor = autor
         this.estado = estado
+        this.urlImagen = urlImagen
 
 
     }

@@ -1,6 +1,5 @@
 package jq.vc.uniquindio.co.herbarioclient.Actividades
 
-import android.os.Bundle
 import android.support.design.widget.Snackbar
 import android.support.v7.app.AppCompatActivity;
 import android.view.View
@@ -10,7 +9,6 @@ import kotlinx.android.synthetic.main.activity_registro_planta.*
 import android.provider.MediaStore
 import android.content.Intent
 import android.net.Uri
-import android.os.Build
 import android.util.Log
 import java.io.File
 import kotlin.random.Random
@@ -30,11 +28,13 @@ import android.content.Context;
 import android.content.res.Configuration
 import android.os.Environment.getExternalStorageDirectory
 
-import android.os.Environment
 import android.support.v4.content.FileProvider
 import android.graphics.BitmapFactory
 import android.graphics.Bitmap
+import android.graphics.Color
+import android.os.*
 import android.widget.ImageView
+import android.widget.Toast
 import com.google.firebase.FirebaseApp
 import jq.vc.uniquindio.co.herbarioclient.util.ManagerFireBase
 import jq.vc.uniquindio.co.herbarioclient.vo.ListaPlantas
@@ -45,16 +45,16 @@ class RegistroPlantaActivity : AppCompatActivity() {
     private val PERMISSION_REQUEST_CODE = 200
 
     var fotoPlanta: ImageView? = null
-    val nombre: String? = "foto.jpg"
+    var nombre: String? = null
     lateinit var managerFireBase: ManagerFireBase
     var listaPlantas: ArrayList<ListaPlantas> = ArrayList()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_registro_planta)
-
-
         managerFireBase = ManagerFireBase.managerInstance
+
+
         fotoPlanta = findViewById(R.id.foto_planta)
         Log.d("EstaAqui", "Hola")
 
@@ -74,10 +74,25 @@ class RegistroPlantaActivity : AppCompatActivity() {
 
         btn_enviar.setOnClickListener(object : View.OnClickListener {
             override fun onClick(p0: View?) {
+
+
+
+
                 listaPlantas = ArrayList()
-                agregarPlanta(ListaPlantas(textNombreTDet.text.toString(),textGeneroTDet.text.toString(),textFamiliaTDet.text.toString(),
-                    textSubFamiliaTDet.text.toString(),textTribuTDet.text.toString(), textEspecieTDet.text.toString(),
-                    textDetalleTDet.text.toString(),"Victor", "I"))
+                agregarPlanta(
+                    ListaPlantas(
+                        textNombreTDet.text.toString(),
+                        textGeneroTDet.text.toString(),
+                        textFamiliaTDet.text.toString(),
+                        textSubFamiliaTDet.text.toString(),
+                        textTribuTDet.text.toString(),
+                        textEspecieTDet.text.toString(),
+                        textDetalleTDet.text.toString(),
+                        "Victor",
+                        "I",
+                        "null"
+                    )
+                )
 
 
             }
@@ -85,18 +100,56 @@ class RegistroPlantaActivity : AppCompatActivity() {
     }
 
 
-
     /**
-     * Función que permite agregar un pokemón a una lista.
-     * @param pokemon Lista de pokemones a agregar
+     * Función que permite agregar una planta a .
+     * @param listaPlanta Lista de plantas a agregar
      */
     fun agregarPlanta(listaPlanta: ListaPlantas) {
-        Log.d("El autor es","="+listaPlanta.autor)
-        //listaPlantas.add(listaPlanta)
-        //managerFireBase.insertar(listaPlanta)
-        // adaptador!!.notifyItemChanged(0)
+
+        val ruta: String = getExternalStorageDirectory().getPath() + "/" + nombre
+        var urlImagen:String?=null
+        val rutaImagenDb: String = textGeneroTDet.text.toString() + "/" + textFamiliaTDet.text.toString() +
+                "/" + textSubFamiliaTDet.text.toString() + "/" + textTribuTDet.text.toString() +
+                "/" + textEspecieTDet.text.toString() + "/" + nombre
+        var llaveImagen = managerFireBase.insetarConLLave(listaPlanta)
+
+        managerFireBase.uploadImage(ruta, rutaImagenDb,llaveImagen)
+
+        alertDialog()
+
     }
 
+
+    /**
+     * Función que permite abrir un dialogo donde se confirma la que la planta ha
+     * sido agregada con exito
+     */
+    fun alertDialog() {
+        val builder = AlertDialog.Builder(this)
+
+        // Set the alert dialog title
+        builder.setTitle("Información")
+
+        // Display a message on alert dialog
+        builder.setMessage(
+            "El reporte de su planta ha sido cargado con éxito" +
+                    ", ahora se encuentra a la espera de aprobación por parte " +
+                    "del administrador"
+        )
+
+        // Set a positive button and its click listener on alert dialog
+        builder.setPositiveButton("Aceptar") { dialog, which ->
+            // Do something when user press the positive button
+            finish()
+            // Change the app background colo
+        }
+
+        // Finally, make the alert dialog using builder
+        val dialog: AlertDialog = builder.create()
+
+        // Display the alert dialog on app interface
+        dialog.show()
+    }
 
     /**
      * Recibe el resultado de la ejecución de la actividad.
@@ -104,10 +157,10 @@ class RegistroPlantaActivity : AppCompatActivity() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         val bitmap1 = BitmapFactory.decodeFile(getExternalStorageDirectory().getPath() + "/" + nombre)
-
         Log.d("Imagen es", "" + getExternalStorageDirectory().getPath() + "/" + nombre + "---" + bitmap1)
 
         fotoPlanta!!.setImageBitmap(bitmap1)
+
 
     }
 
@@ -115,6 +168,7 @@ class RegistroPlantaActivity : AppCompatActivity() {
     @SuppressLint("ResourceType")
     fun tomarFoto() {
         val rnds = (0..100).random()
+        nombre = "planta" + rnds + ".jpg"
 
         val intento1 = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
         val foto = File(getExternalStorageDirectory().getPath() + "/" + nombre)

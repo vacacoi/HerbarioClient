@@ -58,10 +58,6 @@ class AdaptadorListaPlantas (fragment: Fragment, var listaPlantas:ArrayList<List
             Log.d("El valor es,","+"+v!!.id)
              Log.d("Planta", "Elemento $adapterPosition clickeado ${nombre.text}")
             listener.onClickPosition(adapterPosition)
-
-
-
-
         }
 
 
@@ -102,11 +98,15 @@ class AdaptadorListaPlantas (fragment: Fragment, var listaPlantas:ArrayList<List
 
     fun mostrarDetallePlanta(p1: Int) {
 
-        Log.v("Llega hasta aqui", "Hasta aqui")
+        var listaPlanta: ArrayList<ListaPlantas> = ArrayList()
+        listaPlanta = ArrayList()
+
+        Log.v("Llega hasta aqui", "Hasta aqui"+listaPlantas[p1].urlImagen)
+        listaPlanta.add(ListaPlantas(listaPlantas[p1].urlImagen,listaPlantas[p1].urlImagen,listaPlantas[p1].urlImagen,listaPlantas[p1].urlImagen,listaPlantas[p1].urlImagen,listaPlantas[p1].urlImagen,listaPlantas[p1].urlImagen,listaPlantas[p1].urlImagen))
 
         val intent = Intent(context, DetallePlantasActivity::class.java)
-        intent.putExtra("lista",listaPlantas)
-        intent.putExtra("p0",p1)
+        intent.putExtra("lista",listaPlanta)
+        intent.putExtra("p0",0)
         context.startActivity(intent)
 
     }
