@@ -28,8 +28,8 @@ class ActivityLogueado : AppCompatActivity(), NavigationView.OnNavigationItemSel
 
     var nombre: String? = null
     var apellido: String? = null
-    var sesion:Sesion?=null
-    private var fotoPerfil: ImageView?=null
+    var sesion: Sesion? = null
+    private var fotoPerfil: ImageView? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,10 +40,17 @@ class ActivityLogueado : AppCompatActivity(), NavigationView.OnNavigationItemSel
 
         nombre = sesion!!.getNombre()
         apellido = sesion!!.getApellido()
-        GetImageToURL().execute(sesion!!.getUrlFoto())
+        if (!!sesion!!.getUrlFoto().equals(null)) {
+            GetImageToURL().execute(sesion!!.getUrlFoto())
+        }
 
         val toggle = ActionBarDrawerToggle(
-            this, drawer_layout_logueado, toolbar_logueado, R.string.navigation_drawer_open, R.string.navigation_drawer_close)
+            this,
+            drawer_layout_logueado,
+            toolbar_logueado,
+            R.string.navigation_drawer_open,
+            R.string.navigation_drawer_close
+        )
         drawer_layout_logueado.addDrawerListener(toggle)
         toggle.syncState()
 
@@ -85,7 +92,7 @@ class ActivityLogueado : AppCompatActivity(), NavigationView.OnNavigationItemSel
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         // Handle navigation view item clicks here.
-        Log.d("Llega hasta aqui","asdasd")
+        Log.d("Llega hasta aqui", "asdasd")
         when (item.itemId) {
             R.id.lista_plantas_logueado -> {
                 val intent = Intent(this, ListaPlantasActivity::class.java)
@@ -97,7 +104,7 @@ class ActivityLogueado : AppCompatActivity(), NavigationView.OnNavigationItemSel
                 intent.putExtra("registro_plantas", "1")
                 startActivity(intent)
             }
-            R.id.plantas_ingresadas-> {
+            R.id.plantas_ingresadas -> {
                 val intent = Intent(this, PlantaEnviadasActivity::class.java)
                 intent.putExtra("plantas_enviadas", "1")
                 startActivity(intent)
