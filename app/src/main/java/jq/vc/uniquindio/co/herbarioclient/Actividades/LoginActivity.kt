@@ -54,6 +54,12 @@ class LoginActivity : AppCompatActivity(), LoaderCallbacks<Cursor> {
         })
 
         email_sign_in_button.setOnClickListener { attemptLogin() }
+
+        registro.setOnClickListener {
+            val intent = Intent(this,RegistroActivity::class.java)
+            intent.putExtra("Iniciar Sesion","1")
+            startActivity(intent)
+        }
     }
 
     private fun populateAutoComplete() {

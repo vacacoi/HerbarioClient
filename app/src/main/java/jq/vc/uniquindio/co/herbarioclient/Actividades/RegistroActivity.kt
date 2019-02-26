@@ -1,67 +1,55 @@
 package jq.vc.uniquindio.co.herbarioclient.Actividades
 
-import android.support.design.widget.Snackbar
-import android.support.v7.app.AppCompatActivity;
-import android.view.View
-import jq.vc.uniquindio.co.herbarioclient.R
-
-import kotlinx.android.synthetic.main.activity_registro_planta.*
-import android.provider.MediaStore
-import android.content.Intent
-import android.net.Uri
-import android.util.Log
-import java.io.File
-import kotlin.random.Random
-import android.content.pm.PackageManager
-import android.Manifest.permission.READ_EXTERNAL_STORAGE
-import android.support.v4.content.ContextCompat
-import android.Manifest.permission.WRITE_EXTERNAL_STORAGE
-import android.support.annotation.NonNull
-import android.Manifest.permission.READ_EXTERNAL_STORAGE
-import android.Manifest.permission.WRITE_EXTERNAL_STORAGE
+import android.Manifest
 import android.annotation.SuppressLint
-import android.support.v4.app.ActivityCompat
 import android.content.DialogInterface
-import android.annotation.TargetApi
-import android.support.v7.app.AlertDialog
-import android.content.Context;
-import android.content.res.Configuration
-import android.os.Environment.getExternalStorageDirectory
-
-import android.support.v4.content.FileProvider
+import android.content.Intent
+import android.content.pm.PackageManager
 import android.graphics.BitmapFactory
-import android.graphics.Bitmap
-import android.graphics.Color
-import android.os.*
+import android.net.Uri
+import android.os.Build
+import android.os.Bundle
+import android.os.Environment
+import android.provider.MediaStore
+import android.support.design.widget.Snackbar
+import android.support.v4.app.ActivityCompat
+import android.support.v4.content.ContextCompat
+import android.support.v4.content.FileProvider
+import android.support.v7.app.AlertDialog
+import android.support.v7.app.AppCompatActivity;
+import android.util.Log
+import android.view.View
 import android.widget.ImageView
-import android.widget.Toast
-import com.google.firebase.FirebaseApp
+import jq.vc.uniquindio.co.herbarioclient.R
 import jq.vc.uniquindio.co.herbarioclient.util.ManagerFireBase
 import jq.vc.uniquindio.co.herbarioclient.vo.ListaPlantas
+import jq.vc.uniquindio.co.herbarioclient.vo.Usuarios
+
+import kotlinx.android.synthetic.main.activity_registro.*
+import kotlinx.android.synthetic.main.activity_registro_planta.*
+import java.io.File
 import java.text.SimpleDateFormat
 import java.util.*
 
-
-class RegistroPlantaActivity : AppCompatActivity() {
+class RegistroActivity : AppCompatActivity() {
 
     private val PERMISSION_REQUEST_CODE = 200
-
     var fotoPlanta: ImageView? = null
     var nombre: String? = null
     lateinit var managerFireBase: ManagerFireBase
-    var listaPlantas: ArrayList<ListaPlantas> = ArrayList()
+    var usuarios: ArrayList<Usuarios> = ArrayList()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_registro_planta)
+        setContentView(R.layout.activity_registro)
         managerFireBase = ManagerFireBase.managerInstance
         getSupportActionBar()!!.setDisplayHomeAsUpEnabled(true);
 
 
-        fotoPlanta = findViewById(R.id.foto_planta)
+        fotoPlanta = findViewById(R.id.foto_perfil)
 
 
-        btn_tomar.setOnClickListener(object : View.OnClickListener {
+        btn_tomarFoto.setOnClickListener(object : View.OnClickListener {
             override fun onClick(p0: View?) {
                 if (!checkPermission()) {
                     tomarFoto()
@@ -75,21 +63,17 @@ class RegistroPlantaActivity : AppCompatActivity() {
             }
         })
 
-        btn_enviar.setOnClickListener(object : View.OnClickListener {
+        btn_registrar.setOnClickListener(object : View.OnClickListener {
             override fun onClick(p0: View?) {
 
-                listaPlantas = ArrayList()
-                agregarPlanta(
-                    ListaPlantas(
-                        textNombreTDet.text.toString(),
-                        textGeneroTDet.text.toString(),
-                        textFamiliaTDet.text.toString(),
-                        textSubFamiliaTDet.text.toString(),
-                        textTribuTDet.text.toString(),
-                        textEspecieTDet.text.toString(),
-                        textDetalleTDet.text.toString(),
-                        "Victor",
-                        "I",
+                usuarios = ArrayList()
+                agregarUsuario(
+                    Usuarios(
+                        textNombreTRes.text.toString(),
+                        textApellidoTRes.text.toString(),
+                        textCorreoTRes.text.toString(),
+                        textTelefonoTRes.text.toString(),
+                        textProfesionTRes.text.toString(),
                         "null"
                     )
                 )
@@ -97,23 +81,21 @@ class RegistroPlantaActivity : AppCompatActivity() {
 
             }
         })
+
     }
 
 
     /**
-     * Función que permite agregar una planta a .
-     * @param listaPlanta Lista de plantas a agregar
+     * Función que permite agregar usuarios a firebase .
+     * @param usuarios Lista de usuarios a agregar
      */
-    fun agregarPlanta(listaPlanta: ListaPlantas) {
+    fun agregarUsuario(usuarios: Usuarios) {
 
-        val ruta: String = getExternalStorageDirectory().getPath() + "/" + nombre
-        var urlImagen:String?=null
-        val rutaImagenDb: String = textGeneroTDet.text.toString() + "/" + textFamiliaTDet.text.toString() +
-                "/" + textSubFamiliaTDet.text.toString() + "/" + textTribuTDet.text.toString() +
-                "/" + textEspecieTDet.text.toString() + "/" + nombre
-        var llaveImagen = managerFireBase.insetarConLLavePlanta(listaPlanta)
+        val ruta: String = Environment.getExternalStorageDirectory().getPath() + "/" + nombre
+        val rutaImagenDb: String = "fotoUsuarios" + "/"+ nombre
+        var llaveImagen = managerFireBase.insetarConLLaveUsuario(usuarios)
 
-        managerFireBase.uploadImage(ruta, rutaImagenDb,llaveImagen,1)
+        managerFireBase.uploadImage(ruta, rutaImagenDb,llaveImagen,2)
 
         alertDialog()
 
@@ -156,8 +138,8 @@ class RegistroPlantaActivity : AppCompatActivity() {
      */
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        val bitmap1 = BitmapFactory.decodeFile(getExternalStorageDirectory().getPath() + "/" + nombre)
-        Log.d("Imagen es", "" + getExternalStorageDirectory().getPath() + "/" + nombre + "---" + bitmap1)
+        val bitmap1 = BitmapFactory.decodeFile(Environment.getExternalStorageDirectory().getPath() + "/" + nombre)
+        Log.d("Imagen es", "" + Environment.getExternalStorageDirectory().getPath() + "/" + nombre + "---" + bitmap1)
 
         fotoPlanta!!.setImageBitmap(bitmap1)
 
@@ -171,7 +153,7 @@ class RegistroPlantaActivity : AppCompatActivity() {
         nombre = llave()+ ".jpg"
 
         val intento1 = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
-        val foto = File(getExternalStorageDirectory().getPath() + "/" + nombre)
+        val foto = File(Environment.getExternalStorageDirectory().getPath() + "/" + nombre)
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             intento1.flags = Intent.FLAG_GRANT_READ_URI_PERMISSION
             val contentUri = FileProvider.getUriForFile(this, "jq.vc.uniquindio.co.herbarioclient.fileProvider", foto)
@@ -195,10 +177,10 @@ class RegistroPlantaActivity : AppCompatActivity() {
 
         return ContextCompat.checkSelfPermission(
             this,
-            WRITE_EXTERNAL_STORAGE
+            Manifest.permission.WRITE_EXTERNAL_STORAGE
         ) != PackageManager.PERMISSION_GRANTED && ContextCompat.checkSelfPermission(
             this,
-            READ_EXTERNAL_STORAGE
+            Manifest.permission.READ_EXTERNAL_STORAGE
         ) != PackageManager.PERMISSION_GRANTED
     }
 
@@ -208,17 +190,19 @@ class RegistroPlantaActivity : AppCompatActivity() {
     private fun requestPermissionAndContinue() {
         if (ContextCompat.checkSelfPermission(
                 this,
-                WRITE_EXTERNAL_STORAGE
+                Manifest.permission.WRITE_EXTERNAL_STORAGE
             ) != PackageManager.PERMISSION_GRANTED && ContextCompat.checkSelfPermission(
                 this,
-                READ_EXTERNAL_STORAGE
+                Manifest.permission.READ_EXTERNAL_STORAGE
             ) != PackageManager.PERMISSION_GRANTED
         ) {
 
             if (ActivityCompat.shouldShowRequestPermissionRationale(
                     this,
-                    WRITE_EXTERNAL_STORAGE
-                ) && ActivityCompat.shouldShowRequestPermissionRationale(this, READ_EXTERNAL_STORAGE)
+                    Manifest.permission.WRITE_EXTERNAL_STORAGE
+                ) && ActivityCompat.shouldShowRequestPermissionRationale(this,
+                    Manifest.permission.READ_EXTERNAL_STORAGE
+                )
             ) {
                 val alertBuilder = AlertDialog.Builder(this)
                 alertBuilder.setCancelable(true)
@@ -227,8 +211,11 @@ class RegistroPlantaActivity : AppCompatActivity() {
                 alertBuilder.setPositiveButton(android.R.string.yes,
                     DialogInterface.OnClickListener { dialog, which ->
                         ActivityCompat.requestPermissions(
-                            this@RegistroPlantaActivity,
-                            arrayOf(WRITE_EXTERNAL_STORAGE, READ_EXTERNAL_STORAGE),
+                            this@RegistroActivity,
+                            arrayOf(
+                                Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                                Manifest.permission.READ_EXTERNAL_STORAGE
+                            ),
                             PERMISSION_REQUEST_CODE
                         )
                     })
@@ -237,8 +224,8 @@ class RegistroPlantaActivity : AppCompatActivity() {
                 Log.e("", "permission denied, show dialog")
             } else {
                 ActivityCompat.requestPermissions(
-                    this@RegistroPlantaActivity,
-                    arrayOf(WRITE_EXTERNAL_STORAGE, READ_EXTERNAL_STORAGE),
+                    this@RegistroActivity,
+                    arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE),
                     PERMISSION_REQUEST_CODE
                 )
             }
@@ -285,5 +272,7 @@ class RegistroPlantaActivity : AppCompatActivity() {
         val hourdateFormat = SimpleDateFormat("HHmmssddMMyyyy")
         return hourdateFormat.format(date)
     }
-
 }
+
+
+

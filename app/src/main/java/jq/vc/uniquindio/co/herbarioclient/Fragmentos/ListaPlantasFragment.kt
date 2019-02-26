@@ -88,7 +88,7 @@ class ListaPlantasFragment : Fragment(),AdaptadorListaPlantas.OnClickAdaptadorLi
 
         managerFireBase = ManagerFireBase.managerInstance
         managerFireBase.listener = this
-        managerFireBase.listaPlantas()
+        managerFireBase.escucharEventoFireBase(1)//Llama al método escucharEventoFirebase, dónde se envía por parámetro 1 los cual indica mostrar lista de plantas
 
         adaptador = AdaptadorListaPlantas(this,listaPlantas,activity!!.baseContext)
         listaPlantas_view.adapter = this.adaptador

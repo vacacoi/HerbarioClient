@@ -21,6 +21,7 @@ import com.google.firebase.database.*
 import java.text.SimpleDateFormat
 import java.util.*
 import com.google.firebase.database.DataSnapshot
+import jq.vc.uniquindio.co.herbarioclient.vo.Usuarios
 
 
 class ManagerFireBase private constructor() {
@@ -60,9 +61,15 @@ class ManagerFireBase private constructor() {
 
     }
 
-    fun insetarConLLave(listaPlantas: ListaPlantas): String {
+    fun insetarConLLavePlanta(listaPlantas: ListaPlantas): String {
 
         dataRef!!.child(llave()).child("plantas").setValue(listaPlantas)
+        return llave()
+    }
+
+    fun insetarConLLaveUsuario(usuarios: Usuarios): String {
+
+        dataRef!!.child(llave()).child("usuarios").setValue(usuarios)
         return llave()
     }
 
@@ -84,7 +91,7 @@ class ManagerFireBase private constructor() {
     /**
      * Permite cargar una imagen a FireBase y actualizar la url en donde queda la imagen guardada.
      */
-    fun uploadImage(file: String, rutaBD: String, llave: String): String? {
+    fun uploadImage(file: String, rutaBD: String, llave: String,tipo: Int): String? {
         val file = Uri.fromFile(File(file))
         val riversRef = dataStore!!.child(rutaBD)
         var downloadUri: String? = null
@@ -93,17 +100,26 @@ class ManagerFireBase private constructor() {
             riversRef.getDownloadUrl().addOnSuccessListener(
                 OnSuccessListener<Uri> { uri ->
                     Log.d("Holaa", "onSuccess: uri= $uri")
-
-                    dataRef!!.database.reference.child(llave).child("plantas").child("urlImagen").setValue(uri.toString())
+                    if(tipo == 1) {
+                        dataRef!!.database.reference.child(llave).child("plantas").child("urlImagen")
+                            .setValue(uri.toString())
+                    }else if(tipo == 2){
+                        dataRef!!.database.reference.child(llave).child("usuarios").child("urlImagenPerfil")
+                            .setValue(uri.toString())
+                    }
                 })
         })
 
-        escucharEventoFireBase()
         return downloadUri
     }
 
 
-    fun escucharEventoFireBase() {
+
+
+    /**
+     * Método que permite consultar en tiempo real a firebase y traer los datos almacenados
+     */
+    fun escucharEventoFireBase(tipo:Int) {
         dataRef!!.addChildEventListener(object : ChildEventListener {
             override fun onCancelled(p0: DatabaseError) {
                 Log.v("ManagerFire", "onCancelled")
@@ -114,14 +130,20 @@ class ManagerFireBase private constructor() {
             }
 
             override fun onChildChanged(p0: DataSnapshot, p1: String?) {
-                Log.v("ManagerFire", "onChildChanged")
+                val listaPlantas = p0!!.child("plantas").getValue(ListaPlantas::class.java)!!
+                if (listaPlantas != null && listaPlantas!!.estado =="A" && tipo == 1) {
+                    listener.actualizarAdaptador(listaPlantas)
+                }
             }
 
             override fun onChildAdded(p0: DataSnapshot, p1: String?) {
 
-                val listaPlantas = p0!!.getValue(ListaPlantas::class.java)!!
-                listaPlantas.autor = p0!!.key
-                Log.v("ManagerFire", "onChildAdded" + p0!!.key)
+                val listaPlantas = p0.child("plantas").getValue(ListaPlantas::class.java)!!
+                if (listaPlantas != null && listaPlantas.estado =="A" && tipo == 1) {
+                    listener.actualizarAdaptador(listaPlantas)
+                }
+
+                Log.v("ManagerFire", "onChildAdded" + listaPlantas!!.urlImagen)
             }
 
             override fun onChildRemoved(p0: DataSnapshot) {
@@ -130,13 +152,12 @@ class ManagerFireBase private constructor() {
         })
     }
 
-    fun listaPlantas(): ArrayList<ListaPlantas> {
-
+    /*fun listaPlantas(): ArrayList<ListaPlantas> {
 
 
         Log.d("hola","="+dataRef!!.orderByKey().equalTo("plantas")+"----"+dataRef!!.orderByKey())
         var listaPlantas: ArrayList<ListaPlantas> = ArrayList()
-        dataRef!!.orderByKey().equalTo("plantas").addValueEventListener(object : ValueEventListener {
+        dataRef!!.orderByKey().addValueEventListener(object : ValueEventListener {
             override fun onCancelled(p0: DatabaseError) {
                 TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
             }
@@ -145,15 +166,14 @@ class ManagerFireBase private constructor() {
                 p0.getValue(ListaPlantas::class.java)
                 for (snapshot in p0.getChildren()) {
 
-                    val listaplanta = snapshot.getValue(ListaPlantas::class.java)
-                    if (listaplanta != null) {
-                        listener.actualizarAdaptador(listaplanta)
-                        //listaPlantas.add(listaplanta)
+                    if(snapshot.hasChildren()){
+                        val listaplanta = snapshot.child("plantas").getValue(ListaPlantas::class.java)
 
+                        Log.d(
+                            "Nombre", listaplanta!!.urlImagen
+                        )
                     }
-                    Log.d(
-                        "Nombre", listaplanta!!.urlImagen
-                    )
+
 
                 }
 
@@ -165,7 +185,7 @@ class ManagerFireBase private constructor() {
 
 
         return listaPlantas
-    }
+    }*/
 
     interface onActualizarAdaptador {
         fun actualizarAdaptador(listaPlantas: ListaPlantas)
