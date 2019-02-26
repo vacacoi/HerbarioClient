@@ -59,6 +59,25 @@
             <android.support.design.widget.TextInputLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
+            <EditText
+                    android:id="@+id/textPassTRes"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:hint="@string/prompt_password"
+                    android:imeActionId="6"
+                     android:textStyle="bold"
+                    android:imeActionLabel="@string/action_sign_in_short"
+                    android:imeOptions="actionUnspecified"
+                    android:inputType="textPassword"
+                    android:maxLines="1"
+                    android:singleLine="true" />
+        </android.support.design.widget.TextInputLayout>
+
+
+            <android.support.design.widget.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
                 <EditText
                         android:id="@+id/textTelefonoTRes"
                         android:layout_width="match_parent"
@@ -113,7 +132,7 @@
                         android:id="@+id/btn_registrar"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/btn_registrar"/>
+                        android:text="@string/btn_registra"/>
 
                 <Button
                         android:id="@+id/btn_cancelar"

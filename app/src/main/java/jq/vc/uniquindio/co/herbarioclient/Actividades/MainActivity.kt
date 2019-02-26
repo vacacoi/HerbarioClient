@@ -7,16 +7,19 @@ import android.support.design.widget.NavigationView
 import android.support.v4.view.GravityCompat
 import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.app.AppCompatActivity
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.TextView
 import jq.vc.uniquindio.co.herbarioclient.R
+import jq.vc.uniquindio.co.herbarioclient.vo.Sesion
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.app_bar_main.*
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
 
     var textView: TextView?=null
+    var sesion:Sesion?=null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -24,6 +27,14 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
         setSupportActionBar(toolbar)
         //textView = findViewById<TextView>(R.id.titulo_principal)
+
+        sesion = Sesion(this)
+        if(!sesion!!.getusename().equals("")){
+            Log.d("Apenas","llegue="+sesion!!.getusename())
+            lanzarActividadSession()
+            finish()
+        }
+
 
         fab.setOnClickListener { view ->
             Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
@@ -90,6 +101,15 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         return true
     }
 
+
+    /**
+     * Si el usuario no ha cerrado sesión, carga la actvidad principal
+     */
+    fun lanzarActividadSession(){
+        val intent = Intent(this,ActivityLogueado::class.java)
+        intent.putExtra("Iniciar Sesion","1")
+        startActivity(intent)
+    }
 
 }
 

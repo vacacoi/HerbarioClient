@@ -22,4 +22,6 @@ class Sesion {
     fun getusename(): String {
         return prefs.getString("usename", "")
     }
+
+
 }

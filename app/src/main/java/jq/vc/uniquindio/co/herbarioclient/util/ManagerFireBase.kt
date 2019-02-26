@@ -17,17 +17,26 @@ import com.google.firebase.storage.UploadTask
 import com.google.android.gms.tasks.OnSuccessListener
 import com.google.android.gms.tasks.Task
 import android.support.v4.os.HandlerCompat.postDelayed
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
 import java.text.SimpleDateFormat
 import java.util.*
 import com.google.firebase.database.DataSnapshot
 import jq.vc.uniquindio.co.herbarioclient.vo.Usuarios
+import android.widget.Toast
+import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.auth.AuthResult
+import com.google.android.gms.tasks.OnCompleteListener
+import android.R.attr.password
+import android.app.ProgressDialog
+import android.support.v7.app.AlertDialog
 
 
 class ManagerFireBase private constructor() {
     private var database: FirebaseDatabase? = null
     private var dataRef: DatabaseReference? = null
     private var dataStore: StorageReference? = null
+    private var dataAuth: FirebaseAuth? = null
     lateinit var listener: onActualizarAdaptador
     //hace referencia a la bd
 
@@ -37,6 +46,8 @@ class ManagerFireBase private constructor() {
         database = FirebaseDatabase.getInstance()
         dataRef = database!!.reference
         dataStore = FirebaseStorage.getInstance().reference
+        dataAuth = FirebaseAuth.getInstance()
+
         //reference es la rama principal
     }
 
@@ -91,7 +102,7 @@ class ManagerFireBase private constructor() {
     /**
      * Permite cargar una imagen a FireBase y actualizar la url en donde queda la imagen guardada.
      */
-    fun uploadImage(file: String, rutaBD: String, llave: String,tipo: Int): String? {
+    fun uploadImage(file: String, rutaBD: String, llave: String, tipo: Int): String? {
         val file = Uri.fromFile(File(file))
         val riversRef = dataStore!!.child(rutaBD)
         var downloadUri: String? = null
@@ -100,10 +111,10 @@ class ManagerFireBase private constructor() {
             riversRef.getDownloadUrl().addOnSuccessListener(
                 OnSuccessListener<Uri> { uri ->
                     Log.d("Holaa", "onSuccess: uri= $uri")
-                    if(tipo == 1) {
+                    if (tipo == 1) {
                         dataRef!!.database.reference.child(llave).child("plantas").child("urlImagen")
                             .setValue(uri.toString())
-                    }else if(tipo == 2){
+                    } else if (tipo == 2) {
                         dataRef!!.database.reference.child(llave).child("usuarios").child("urlImagenPerfil")
                             .setValue(uri.toString())
                     }
@@ -114,12 +125,10 @@ class ManagerFireBase private constructor() {
     }
 
 
-
-
     /**
      * Método que permite consultar en tiempo real a firebase y traer los datos almacenados
      */
-    fun escucharEventoFireBase(tipo:Int) {
+    fun escucharEventoFireBase(tipo: Int) {
         dataRef!!.addChildEventListener(object : ChildEventListener {
             override fun onCancelled(p0: DatabaseError) {
                 Log.v("ManagerFire", "onCancelled")
@@ -131,19 +140,25 @@ class ManagerFireBase private constructor() {
 
             override fun onChildChanged(p0: DataSnapshot, p1: String?) {
                 val listaPlantas = p0!!.child("plantas").getValue(ListaPlantas::class.java)!!
-                if (listaPlantas != null && listaPlantas!!.estado =="A" && tipo == 1) {
+                if (listaPlantas != null && listaPlantas!!.estado == "A" && tipo == 1) {
                     listener.actualizarAdaptador(listaPlantas)
                 }
             }
 
             override fun onChildAdded(p0: DataSnapshot, p1: String?) {
 
-                val listaPlantas = p0.child("plantas").getValue(ListaPlantas::class.java)!!
-                if (listaPlantas != null && listaPlantas.estado =="A" && tipo == 1) {
-                    listener.actualizarAdaptador(listaPlantas)
-                }
+                if (p0.child("plantas").exists() && tipo == 1) {
+                    val listaPlantas = p0.child("plantas").getValue(ListaPlantas::class.java)!!
+                    if (listaPlantas.estado == "A") {
+                        listener.actualizarAdaptador(listaPlantas)
+                    }
 
-                Log.v("ManagerFire", "onChildAdded" + listaPlantas!!.urlImagen)
+                    Log.v("ManagerFire", "onChildAdded" + listaPlantas!!.urlImagen)
+                }else if(p0.child("usuarios").exists() && tipo == 2){
+                    val listaUsuario = p0.child("usuarios").getValue(Usuarios::class.java)!!
+                    listener.cedredenciales(listaUsuario)
+
+                }
             }
 
             override fun onChildRemoved(p0: DataSnapshot) {
@@ -189,5 +204,69 @@ class ManagerFireBase private constructor() {
 
     interface onActualizarAdaptador {
         fun actualizarAdaptador(listaPlantas: ListaPlantas)
+        fun cedredenciales(usuarios: Usuarios)
+    }
+
+    /**
+     * Registrar email y contraseña
+     */
+
+    fun registroUsuario(email:String,pass:String,progressDialog: ProgressDialog,context: Context,ruta:String,rutaImagenDb:String,usuarios:Usuarios):Boolean{
+
+        var boolean:Boolean = false
+
+        dataAuth!!.createUserWithEmailAndPassword(email, pass)
+            .addOnCompleteListener(OnCompleteListener<AuthResult> { task ->
+                if (task.isSuccessful) {
+                    // Sign in success, update UI with the signed-in user's information
+
+                    val user = dataAuth!!.getCurrentUser()
+                    var llaveImagen = insetarConLLaveUsuario(usuarios)
+                    uploadImage(ruta, rutaImagenDb, llaveImagen, 2)
+                    progressDialog.dismiss()
+                    alertDialog(context)
+                } else {
+                    // If sign in fails, display a message to the user.
+                    Log.w("Hola", "createUserWithEmail:failure", task.exception)
+                    progressDialog.dismiss()
+                    Toast.makeText(context,"No se pudo registrar el correo electrónico o contraseña (mayor a 6 digitos)",Toast.LENGTH_LONG).show()
+                    return@OnCompleteListener
+                }
+            })
+    return boolean
+    }
+
+
+    fun ingresar(email:String,password: String){
+
+    }
+
+
+    /**
+     * Función que permite abrir un dialogo donde se confirma la que la planta ha
+     * sido agregada con exito
+     */
+    fun alertDialog(context: Context) {
+        val builder = AlertDialog.Builder(context)
+
+        // Set the alert dialog title
+        builder.setTitle("Información")
+
+        // Display a message on alert dialog
+        builder.setMessage(
+            "Se ha registrado correctamente!!"
+        )
+
+        // Set a positive button and its click listener on alert dialog
+        builder.setPositiveButton("Aceptar") { dialog, which ->
+            // Do something when user press the positive button
+            // Change the app background colo
+        }
+
+        // Finally, make the alert dialog using builder
+        val dialog: AlertDialog = builder.create()
+
+        // Display the alert dialog on app interface
+        dialog.show()
     }
 }

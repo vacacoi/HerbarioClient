@@ -23,25 +23,49 @@ import android.widget.TextView
 
 import java.util.ArrayList
 import android.Manifest.permission.READ_CONTACTS
+import android.app.ProgressDialog
 import android.content.Intent
+import android.support.annotation.NonNull
 import android.util.Log
+import android.widget.Toast
+import com.google.android.gms.tasks.OnCompleteListener
+import com.google.android.gms.tasks.Task
+import com.google.firebase.auth.AuthResult
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
 import jq.vc.uniquindio.co.herbarioclient.R
+import jq.vc.uniquindio.co.herbarioclient.util.ManagerFireBase
+import jq.vc.uniquindio.co.herbarioclient.vo.ListaPlantas
+import jq.vc.uniquindio.co.herbarioclient.vo.Sesion
+import jq.vc.uniquindio.co.herbarioclient.vo.Usuarios
 
 import kotlinx.android.synthetic.main.activity_login.*
 
 /**
  * A login screen that offers login via email/password.
  */
-class LoginActivity : AppCompatActivity(), LoaderCallbacks<Cursor> {
+class LoginActivity : AppCompatActivity(), LoaderCallbacks<Cursor>,ManagerFireBase.onActualizarAdaptador {
+
+
+
     /**
      * Keep track of the login task to ensure we can cancel it if requested.
      */
     private var mAuthTask: UserLoginTask? = null
+    lateinit var managerFireBase: ManagerFireBase
+    var sesion:Sesion?=null
+    var listaUsuarios: ArrayList<Usuarios> = ArrayList()
+    var mAuth: FirebaseAuth? =null
+    var progressDialog: ProgressDialog?=null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
         getSupportActionBar()!!.setDisplayHomeAsUpEnabled(true);
+        mAuth = FirebaseAuth.getInstance();
+        progressDialog = ProgressDialog(this)
+        sesion = Sesion(this)
+
 
         // Set up the login form.
         populateAutoComplete()
@@ -61,6 +85,35 @@ class LoginActivity : AppCompatActivity(), LoaderCallbacks<Cursor> {
             startActivity(intent)
         }
     }
+
+    override fun onStart() {
+        super.onStart()
+         val user:FirebaseUser = mAuth!!.currentUser!!
+    }
+
+    fun ingresar(email:String,password: String){
+       mAuth!!.signInWithEmailAndPassword(email!!, password!!)
+           .addOnCompleteListener(this) { task ->
+
+               if (task.isSuccessful) {
+                   // Sign in success, update UI with signed-in user's information
+                   val user:FirebaseUser = mAuth!!.currentUser!!;
+                   Log.d("Log", "signInWithEmail:success"+user.email)
+                   sesion!!.setusename(user.email.toString())
+                   Log.d("Log", "signInWithEmail:success"+sesion!!.getusename())
+                   progressDialog!!.dismiss()
+                   lanzarActividad()
+
+               } else {
+                   progressDialog!!.dismiss()
+                   // If sign in fails, display a message to the user.
+                   Log.e("", "signInWithEmail:failure", task.exception)
+                   Toast.makeText(this@LoginActivity, "Ha fallado la autenticación.",
+                       Toast.LENGTH_SHORT).show()
+               }
+           }
+    }
+
 
     private fun populateAutoComplete() {
         if (!mayRequestContacts()) {
@@ -112,6 +165,7 @@ class LoginActivity : AppCompatActivity(), LoaderCallbacks<Cursor> {
             return
         }
 
+
         // Reset errors.
         usuario.error = null
         pass.error = null
@@ -139,12 +193,14 @@ class LoginActivity : AppCompatActivity(), LoaderCallbacks<Cursor> {
             focusView?.requestFocus()
         } else {
 
-            Log.d("Es logueado", "Hola")
+
             // Show a progress spinner, and kick off a background task to
             // perform the user login attempt.
-            showProgress(true)
-            mAuthTask = UserLoginTask(emailStr, passwordStr)
-            mAuthTask!!.execute(null as Void?)
+            progressDialog!!.setMessage("Validando usuario...")
+            progressDialog!!.show()
+            ingresar(emailStr,passwordStr)
+           // mAuthTask = UserLoginTask(emailStr, passwordStr)
+            //mAuthTask!!.execute(null as Void?)
 
 
         }
@@ -327,5 +383,18 @@ class LoginActivity : AppCompatActivity(), LoaderCallbacks<Cursor> {
         intent.putExtra("apellido", "Cruz")
         startActivity(intent)
         finish()
+    }
+
+    override fun actualizarAdaptador(listaPlantas: ListaPlantas) {
+
+    }
+
+    override fun cedredenciales(usuarios: Usuarios) {
+       listaUsuarios(usuarios)
+    }
+
+    fun listaUsuarios(usuarios: Usuarios){
+       listaUsuarios.add(usuarios)
+
     }
 }

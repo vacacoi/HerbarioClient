@@ -2,6 +2,7 @@ package jq.vc.uniquindio.co.herbarioclient.Actividades
 
 import android.Manifest
 import android.annotation.SuppressLint
+import android.app.ProgressDialog
 import android.content.DialogInterface
 import android.content.Intent
 import android.content.pm.PackageManager
@@ -36,14 +37,18 @@ class RegistroActivity : AppCompatActivity() {
     private val PERMISSION_REQUEST_CODE = 200
     var fotoPlanta: ImageView? = null
     var nombre: String? = null
+    var email: String? = null
+    var pass: String? = null
     lateinit var managerFireBase: ManagerFireBase
     var usuarios: ArrayList<Usuarios> = ArrayList()
+    var progressDialog: ProgressDialog?=null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_registro)
         managerFireBase = ManagerFireBase.managerInstance
         getSupportActionBar()!!.setDisplayHomeAsUpEnabled(true);
+        progressDialog = ProgressDialog(this)
 
 
         fotoPlanta = findViewById(R.id.foto_perfil)
@@ -66,17 +71,26 @@ class RegistroActivity : AppCompatActivity() {
         btn_registrar.setOnClickListener(object : View.OnClickListener {
             override fun onClick(p0: View?) {
 
+
+                email =  textCorreoTRes.text.toString()
+                pass =   textPassTRes.text.toString()
                 usuarios = ArrayList()
+
+                progressDialog!!.setMessage("Guardando datos")
+                progressDialog!!.show()
                 agregarUsuario(
                     Usuarios(
                         textNombreTRes.text.toString(),
                         textApellidoTRes.text.toString(),
                         textCorreoTRes.text.toString(),
+                        null,
                         textTelefonoTRes.text.toString(),
                         textProfesionTRes.text.toString(),
                         "null"
                     )
                 )
+
+
 
 
             }
@@ -92,37 +106,28 @@ class RegistroActivity : AppCompatActivity() {
     fun agregarUsuario(usuarios: Usuarios) {
 
         val ruta: String = Environment.getExternalStorageDirectory().getPath() + "/" + nombre
-        val rutaImagenDb: String = "fotoUsuarios" + "/"+ nombre
-        var llaveImagen = managerFireBase.insetarConLLaveUsuario(usuarios)
-
-        managerFireBase.uploadImage(ruta, rutaImagenDb,llaveImagen,2)
-
-        alertDialog()
+        val rutaImagenDb: String = "fotoUsuarios" + "/" + nombre
+        managerFireBase.registroUsuario(email!!,pass!!,progressDialog!!,this,ruta,rutaImagenDb,usuarios)
 
     }
 
 
-    /**
-     * Función que permite abrir un dialogo donde se confirma la que la planta ha
-     * sido agregada con exito
-     */
-    fun alertDialog() {
+
+
+    fun errorDialog() {
         val builder = AlertDialog.Builder(this)
 
         // Set the alert dialog title
-        builder.setTitle("Información")
+        builder.setTitle("Error")
 
         // Display a message on alert dialog
         builder.setMessage(
-            "El reporte de su planta ha sido cargado con éxito" +
-                    ", ahora se encuentra a la espera de aprobación por parte " +
-                    "del administrador"
+            "No se pudo registrar el correo electrónico o contraseña (mayor a 6 digitos)"
         )
 
         // Set a positive button and its click listener on alert dialog
         builder.setPositiveButton("Aceptar") { dialog, which ->
             // Do something when user press the positive button
-            finish()
             // Change the app background colo
         }
 

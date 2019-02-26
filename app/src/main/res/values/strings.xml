@@ -77,7 +77,7 @@
 
     <!-- Agregar plantas -->
     <string name="btn_enviar">Enviar</string>
-    <string name="btn_registrar">Registrar</string>
+    <string name="btn_registra">Registrar</string>
     <string name="btn_cancelar">Cancelar</string>
     <string name="btn_tomar">Tomar Foto</string>
     <string name="permission_necessary">permisos</string>

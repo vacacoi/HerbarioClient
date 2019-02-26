@@ -13,6 +13,7 @@ import android.view.MenuItem
 import android.view.View
 import android.widget.TextView
 import jq.vc.uniquindio.co.herbarioclient.R
+import jq.vc.uniquindio.co.herbarioclient.vo.Sesion
 import kotlinx.android.synthetic.main.activity_logueado.*
 import kotlinx.android.synthetic.main.app_bar_activity_logueado.*
 
@@ -20,11 +21,14 @@ class ActivityLogueado : AppCompatActivity(), NavigationView.OnNavigationItemSel
 
     var nombre: String? = null
     var apellido: String? = null
+    var sesion:Sesion?=null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_logueado)
         setSupportActionBar(toolbar_logueado)
+
+        sesion = Sesion(this)
 
         nombre = intent.extras.getString("nombre")
         apellido = intent.extras.getString("apellido")
@@ -91,6 +95,7 @@ class ActivityLogueado : AppCompatActivity(), NavigationView.OnNavigationItemSel
 
             }
             R.id.salir_login -> {
+                sesion!!.setusename("")
                 finish()
             }
 

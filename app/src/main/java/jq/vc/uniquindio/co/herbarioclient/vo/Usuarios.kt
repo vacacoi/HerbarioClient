@@ -5,15 +5,15 @@ import android.os.Parcelable
 import java.io.Serializable
 
 
-
 class Usuarios() : Parcelable, Serializable {
 
     var nombre: String? = null
     var apellido: String? = null
     var correo: String? = null
+    var pass: String? = null
     var telefono: String? = null
     var profesion: String? = null
-    var urlImagenPerfil: String?=null
+    var urlImagenPerfil: String? = null
 
     constructor(parcel: Parcel) : this() {
         nombre = parcel.readString()
@@ -25,11 +25,20 @@ class Usuarios() : Parcelable, Serializable {
     }
 
 
-    constructor(nombre: String?,apellido: String?,correo: String?,telefono: String?, profesion: String?, urlImagenPerfil: String?) : this() {
+    constructor(
+        nombre: String?,
+        apellido: String?,
+        correo: String?,
+        pass: String?,
+        telefono: String?,
+        profesion: String?,
+        urlImagenPerfil: String?
+    ) : this() {
 
         this.nombre = nombre
         this.apellido = apellido
         this.correo = correo
+        this.pass = pass
         this.telefono = telefono
         this.profesion = profesion
         this.urlImagenPerfil = urlImagenPerfil
@@ -42,6 +51,7 @@ class Usuarios() : Parcelable, Serializable {
         parcel.writeString(nombre)
         parcel.writeString(apellido)
         parcel.writeString(correo)
+        parcel.writeString(pass)
         parcel.writeString(telefono)
         parcel.writeString(profesion)
         parcel.writeString(urlImagenPerfil)

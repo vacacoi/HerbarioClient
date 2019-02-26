@@ -16,6 +16,7 @@ import jq.vc.uniquindio.co.herbarioclient.R
 import jq.vc.uniquindio.co.herbarioclient.util.AdaptadorListaPlantas
 import jq.vc.uniquindio.co.herbarioclient.util.ManagerFireBase
 import jq.vc.uniquindio.co.herbarioclient.vo.ListaPlantas
+import jq.vc.uniquindio.co.herbarioclient.vo.Usuarios
 import kotlinx.android.synthetic.main.fragment_lista_plantas.*
 
 // TODO: Rename parameter arguments, choose names that match
@@ -29,6 +30,9 @@ private const val ARG_PARAM2 = "param2"
  */
 class ListaPlantasFragment : Fragment(),AdaptadorListaPlantas.OnClickAdaptadorListaPlantas,ManagerFireBase.onActualizarAdaptador {
 
+    override fun cedredenciales(usuarios: Usuarios) {
+
+    }
 
 
     override fun actualizarAdaptador(listaPlantas: ListaPlantas) {
