@@ -17,14 +17,17 @@
             android:supportsRtl="true"
             android:theme="@style/AppTheme">
         <activity
+                android:name=".Actividades.PlantaEnviadasActivity"
+                android:label="@string/title_activity_planta_enviadas"
+                >
+        </activity>
+        <activity
                 android:name=".Actividades.RegistroActivity"
-                android:label="@string/title_activity_registro"
-               >
+                android:label="@string/title_activity_registro">
         </activity>
         <activity
                 android:name=".Actividades.RegistroPlantaActivity"
-                android:label="@string/title_activity_registro_planta"
-                >
+                android:label="@string/title_activity_registro_planta">
         </activity>
         <activity
                 android:name=".Actividades.ActivityLogueado"

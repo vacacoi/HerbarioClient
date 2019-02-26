@@ -23,5 +23,27 @@ class Sesion {
         return prefs.getString("usename", "")
     }
 
+    fun setNombre(nombre : String){
+        prefs.edit().putString("nombre", nombre).commit()
+    }
+
+    fun setApellido(apellido : String){
+        prefs.edit().putString("apellido", apellido).commit()
+    }
+
+    fun getNombre():String{
+        return prefs.getString("nombre", "")
+    }
+
+    fun getApellido():String{
+        return prefs.getString("apellido", "")
+    }
+
+    fun setUrlFoto(url: String){
+        prefs.edit().putString("url", url).commit()
+    }
+    fun getUrlFoto():String{
+        return prefs.getString("url", "")
+    }
 
 }

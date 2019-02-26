@@ -82,7 +82,7 @@ class RegistroActivity : AppCompatActivity() {
                     Usuarios(
                         textNombreTRes.text.toString(),
                         textApellidoTRes.text.toString(),
-                        textCorreoTRes.text.toString(),
+                        textCorreoTRes.text.toString().toLowerCase(),
                         null,
                         textTelefonoTRes.text.toString(),
                         textProfesionTRes.text.toString(),

@@ -59,8 +59,11 @@
     <string name="detalle_especie">Especie:</string>
     <string name="detalle_detalle">Detalle:</string>
     <string name="detalle_autor">Autor:</string>
+    <string name="fecha_envio">Fecha envío:</string>
+    <string name="estado">Estado:</string>
 
-    <!--Datos de usuario -->
+
+        <!--Datos de usuario -->
     <string name="datos_correo">Correo</string>
     <string name="datos_nombre">Nombre:</string>
     <string name="datos_apellido">Apellido</string>
@@ -83,4 +86,10 @@
     <string name="permission_necessary">permisos</string>
     <string name="storage_permission_is_encessary_to_wrote_event">permisos2</string>
     <string name="title_activity_registro">RegistroActivity</string>
+    <string name="title_activity_planta_enviadas">Lista de plantas enviadas</string>
+
+    <string name="aprobado">APROBADO</string>
+    <string name="pendiente">PENDIENTE</string>
+    <string name="rechazada">RECHAZADA</string>
+
 </resources>

@@ -38,6 +38,7 @@ import android.widget.Toast
 import com.google.firebase.FirebaseApp
 import jq.vc.uniquindio.co.herbarioclient.util.ManagerFireBase
 import jq.vc.uniquindio.co.herbarioclient.vo.ListaPlantas
+import jq.vc.uniquindio.co.herbarioclient.vo.Sesion
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -50,13 +51,14 @@ class RegistroPlantaActivity : AppCompatActivity() {
     var nombre: String? = null
     lateinit var managerFireBase: ManagerFireBase
     var listaPlantas: ArrayList<ListaPlantas> = ArrayList()
+    var sesion: Sesion? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_registro_planta)
         managerFireBase = ManagerFireBase.managerInstance
         getSupportActionBar()!!.setDisplayHomeAsUpEnabled(true);
-
+        sesion = Sesion(this)
 
         fotoPlanta = findViewById(R.id.foto_planta)
 
@@ -75,6 +77,9 @@ class RegistroPlantaActivity : AppCompatActivity() {
             }
         })
 
+        /**
+         * Evento que captura click en boton de enviar datos
+         */
         btn_enviar.setOnClickListener(object : View.OnClickListener {
             override fun onClick(p0: View?) {
 
@@ -90,7 +95,8 @@ class RegistroPlantaActivity : AppCompatActivity() {
                         textDetalleTDet.text.toString(),
                         "Victor",
                         "I",
-                        "null"
+                        "null",
+                        sesion!!.getusename()
                     )
                 )
 
@@ -127,10 +133,10 @@ class RegistroPlantaActivity : AppCompatActivity() {
     fun alertDialog() {
         val builder = AlertDialog.Builder(this)
 
-        // Set the alert dialog title
+        // Titulo de dialog
         builder.setTitle("Información")
 
-        // Display a message on alert dialog
+        // Muestra el mensaje
         builder.setMessage(
             "El reporte de su planta ha sido cargado con éxito" +
                     ", ahora se encuentra a la espera de aprobación por parte " +
@@ -150,6 +156,7 @@ class RegistroPlantaActivity : AppCompatActivity() {
         // Display the alert dialog on app interface
         dialog.show()
     }
+
 
     /**
      * Recibe el resultado de la ejecución de la actividad.

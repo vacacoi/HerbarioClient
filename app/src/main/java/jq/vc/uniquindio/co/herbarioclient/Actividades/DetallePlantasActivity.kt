@@ -1,12 +1,9 @@
 package jq.vc.uniquindio.co.herbarioclient.Actividades
 
-import android.net.Uri
 import android.os.Bundle
 import android.os.Handler
 import android.support.v7.app.AppCompatActivity;
-import jq.vc.uniquindio.co.herbarioclient.R
 import android.support.v4.view.ViewPager
-import android.util.Log
 
 import jq.vc.uniquindio.co.herbarioclient.vo.ImagenSlider
 
@@ -17,16 +14,23 @@ import com.viewpagerindicator.CirclePageIndicator
 import jq.vc.uniquindio.co.herbarioclient.util.AdaptadorImagen
 import jq.vc.uniquindio.co.herbarioclient.vo.ListaPlantas
 import kotlinx.android.synthetic.main.activity_detalle_pokemon.*
-import kotlinx.android.synthetic.main.resumen_lista_plantas.*
-
-
-
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
+import android.media.Image
+import android.os.AsyncTask
+import android.util.Log
+import android.widget.ImageView
+import jq.vc.uniquindio.co.herbarioclient.R
+import java.io.IOException
+import java.net.HttpURLConnection
+import java.net.URL
 
 
 class DetallePlantasActivity : AppCompatActivity() {
 
     private var mPager: ViewPager? = null
     private var currentPage = 0
+    private var plantaImg: ImageView?=null
     private var NUM_PAGES = 0
     private var p0:Int?=0
     private lateinit var imageModelArrayList: ArrayList<ImagenSlider>
@@ -50,6 +54,9 @@ class DetallePlantasActivity : AppCompatActivity() {
         listaPlantas =intent.getSerializableExtra("lista") as ArrayList<ListaPlantas> //Recibe la lista de obtetos de lista de plantas
         p0 = intent.extras.getInt("p0")//Recibe la posición en la cual se oprimio el botón para ver detallado de plantas
 
+        plantaImg = planta_imagen
+
+        GetImageToURL().execute(listaPlantas.get(p0!!).urlImagen)
 
         textNombreDet.text = " "+listaPlantas.get(p0!!).nombre
         textGeneroDet.text = " "+listaPlantas.get(p0!!).genero
@@ -61,13 +68,34 @@ class DetallePlantasActivity : AppCompatActivity() {
         textAutorDet.text = " "+listaPlantas.get(p0!!).autor
 
 
-        imageModelArrayList = ArrayList()
-        imageModelArrayList = populateList()
+        //imageModelArrayList = ArrayList()
+        //imageModelArrayList = populateList()
 
-        init()
+        //init()
 
     }
 
+    private inner class GetImageToURL : AsyncTask<String, Void, Bitmap>() {
+
+        override fun doInBackground(vararg params: String): Bitmap? {
+            try {
+                val url = URL(params[0])
+                val connection = url.openConnection() as HttpURLConnection
+                connection.setDoInput(true)
+                connection.connect()
+                val input = connection.getInputStream()
+                return BitmapFactory.decodeStream(input)
+            } catch (e: IOException) {
+                // Log exception
+                return null
+            }
+
+        }
+
+        override fun onPostExecute(myBitMap: Bitmap) {
+            plantaImg!!.setImageBitmap(myBitMap)
+        }
+    }
     /**
      * Permite agregar la fecha de presionar atrás
      */
@@ -80,7 +108,7 @@ class DetallePlantasActivity : AppCompatActivity() {
 
         val list : ArrayList<ImagenSlider> = ArrayList()
 
-        for (i in 0..5) {
+        for (i in 0..1) {
             val imageModel = ImagenSlider()
             imageModel.setImage_drawable(myImageList[i])
             list.add(imageModel)

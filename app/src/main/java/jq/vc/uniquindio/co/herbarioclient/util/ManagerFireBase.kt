@@ -30,6 +30,8 @@ import com.google.android.gms.tasks.OnCompleteListener
 import android.R.attr.password
 import android.app.ProgressDialog
 import android.support.v7.app.AlertDialog
+import com.google.firebase.auth.UserProfileChangeRequest
+import jq.vc.uniquindio.co.herbarioclient.vo.Sesion
 
 
 class ManagerFireBase private constructor() {
@@ -38,6 +40,7 @@ class ManagerFireBase private constructor() {
     private var dataStore: StorageReference? = null
     private var dataAuth: FirebaseAuth? = null
     lateinit var listener: onActualizarAdaptador
+    var sesion: Sesion? = null
     //hace referencia a la bd
 
 
@@ -128,7 +131,10 @@ class ManagerFireBase private constructor() {
     /**
      * Método que permite consultar en tiempo real a firebase y traer los datos almacenados
      */
-    fun escucharEventoFireBase(tipo: Int) {
+    fun escucharEventoFireBase(tipo: Int, context: Context) {
+
+        sesion = Sesion(context)
+
         dataRef!!.addChildEventListener(object : ChildEventListener {
             override fun onCancelled(p0: DatabaseError) {
                 Log.v("ManagerFire", "onCancelled")
@@ -139,9 +145,11 @@ class ManagerFireBase private constructor() {
             }
 
             override fun onChildChanged(p0: DataSnapshot, p1: String?) {
-                val listaPlantas = p0!!.child("plantas").getValue(ListaPlantas::class.java)!!
-                if (listaPlantas != null && listaPlantas!!.estado == "A" && tipo == 1) {
-                    listener.actualizarAdaptador(listaPlantas)
+                if (p0.child("plantas").exists() && tipo == 1) {
+                    val listaPlantas = p0!!.child("plantas").getValue(ListaPlantas::class.java)!!
+                    if (listaPlantas != null && listaPlantas!!.estado == "A") {
+                        listener.actualizarAdaptador(listaPlantas)
+                    }
                 }
             }
 
@@ -153,16 +161,20 @@ class ManagerFireBase private constructor() {
                         listener.actualizarAdaptador(listaPlantas)
                     }
 
-                    Log.v("ManagerFire", "onChildAdded" + listaPlantas!!.urlImagen)
-                }else if(p0.child("usuarios").exists() && tipo == 2){
+                } else if (p0.child("usuarios").exists() && tipo == 2) {
                     val listaUsuario = p0.child("usuarios").getValue(Usuarios::class.java)!!
+
                     listener.cedredenciales(listaUsuario)
 
+                } else if (p0.child("plantas").exists() && tipo == 3) {
+                    val listaPlantas = p0.child("plantas").getValue(ListaPlantas::class.java)!!
+                    if (sesion!!.getusename().equals(listaPlantas.email)) {
+                        listener.actualizarAdaptador(listaPlantas)
+                    }
                 }
             }
 
             override fun onChildRemoved(p0: DataSnapshot) {
-                Log.v("ManagerFire", "onChildRemoved")
             }
         })
     }
@@ -211,9 +223,16 @@ class ManagerFireBase private constructor() {
      * Registrar email y contraseña
      */
 
-    fun registroUsuario(email:String,pass:String,progressDialog: ProgressDialog,context: Context,ruta:String,rutaImagenDb:String,usuarios:Usuarios):Boolean{
+    fun registroUsuario(
+        email: String,
+        pass: String,
+        progressDialog: ProgressDialog,
+        context: Context,
+        ruta: String,
+        rutaImagenDb: String,
+        usuarios: Usuarios
+    ) {
 
-        var boolean:Boolean = false
 
         dataAuth!!.createUserWithEmailAndPassword(email, pass)
             .addOnCompleteListener(OnCompleteListener<AuthResult> { task ->
@@ -229,15 +248,20 @@ class ManagerFireBase private constructor() {
                     // If sign in fails, display a message to the user.
                     Log.w("Hola", "createUserWithEmail:failure", task.exception)
                     progressDialog.dismiss()
-                    Toast.makeText(context,"No se pudo registrar el correo electrónico o contraseña (mayor a 6 digitos)",Toast.LENGTH_LONG).show()
+                    Toast.makeText(
+                        context,
+                        "No se pudo registrar el correo electrónico o contraseña (mayor a 6 digitos)",
+                        Toast.LENGTH_LONG
+                    ).show()
                     return@OnCompleteListener
                 }
             })
-    return boolean
+
+
     }
 
 
-    fun ingresar(email:String,password: String){
+    fun ingresar(email: String, password: String) {
 
     }
 

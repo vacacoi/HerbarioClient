@@ -1,9 +1,8 @@
 package jq.vc.uniquindio.co.herbarioclient.Fragmentos
 
-
 import android.content.Context
+import android.net.Uri
 import android.os.Bundle
-import android.support.v4.app.DialogFragment
 import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
 import android.util.Log
@@ -13,11 +12,11 @@ import android.view.ViewGroup
 import android.app.Activity
 
 import jq.vc.uniquindio.co.herbarioclient.R
-import jq.vc.uniquindio.co.herbarioclient.util.AdaptadorListaPlantas
+import jq.vc.uniquindio.co.herbarioclient.util.AdaptadorPlantasEnviadas
 import jq.vc.uniquindio.co.herbarioclient.util.ManagerFireBase
 import jq.vc.uniquindio.co.herbarioclient.vo.ListaPlantas
 import jq.vc.uniquindio.co.herbarioclient.vo.Usuarios
-import kotlinx.android.synthetic.main.fragment_lista_plantas.*
+import kotlinx.android.synthetic.main.fragment_plantas_enviadas.*
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -26,9 +25,14 @@ private const val ARG_PARAM2 = "param2"
 
 /**
  * A simple [Fragment] subclass.
+ * Activities that contain this fragment must implement the
+ * [PlantasEnviadasFragment.OnFragmentInteractionListener] interface
+ * to handle interaction events.
+ * Use the [PlantasEnviadasFragment.newInstance] factory method to
+ * create an instance of this fragment.
  *
  */
-class ListaPlantasFragment : Fragment(),AdaptadorListaPlantas.OnClickAdaptadorListaPlantas,ManagerFireBase.onActualizarAdaptador {
+class PlantasEnviadasFragment : Fragment(),AdaptadorPlantasEnviadas.OnClickAdaptadorPlantasEnviadas,ManagerFireBase.onActualizarAdaptador {
 
     override fun cedredenciales(usuarios: Usuarios) {
 
@@ -42,7 +46,7 @@ class ListaPlantasFragment : Fragment(),AdaptadorListaPlantas.OnClickAdaptadorLi
 
     private lateinit var listener: OnPlantaSeleccionadoListener
     var listaPlantas: ArrayList<ListaPlantas> = ArrayList()
-    var adaptador: AdaptadorListaPlantas? = null
+    var adaptador: AdaptadorPlantasEnviadas? = null
     lateinit var managerFireBase: ManagerFireBase
 
 
@@ -60,7 +64,7 @@ class ListaPlantasFragment : Fragment(),AdaptadorListaPlantas.OnClickAdaptadorLi
         Log.d("Oprime Lista plantas", "=");
 
 
-        return inflater.inflate(R.layout.fragment_lista_plantas, container, false)
+        return inflater.inflate(R.layout.fragment_plantas_enviadas, container, false)
     }
 
     override fun onPause() {
@@ -92,11 +96,11 @@ class ListaPlantasFragment : Fragment(),AdaptadorListaPlantas.OnClickAdaptadorLi
 
         managerFireBase = ManagerFireBase.managerInstance
         managerFireBase.listener = this
-        managerFireBase.escucharEventoFireBase(1,context!!)//Llama al método escucharEventoFirebase, dónde se envía por parámetro 1 los cual indica mostrar lista de plantas
+        managerFireBase.escucharEventoFireBase(3, context!!)//Llama al método escucharEventoFirebase, dónde se envía por parámetro 1 los cual indica mostrar lista de plantas
 
-        adaptador = AdaptadorListaPlantas(this,listaPlantas,activity!!.baseContext)
-        listaPlantas_view.adapter = this.adaptador
-        listaPlantas_view.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, true)
+        adaptador = AdaptadorPlantasEnviadas(this,listaPlantas,activity!!.baseContext)
+        plantasEnviadas_view.adapter = this.adaptador
+        plantasEnviadas_view.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, true)
         setHasOptionsMenu(true)
     }
 
@@ -110,8 +114,5 @@ class ListaPlantasFragment : Fragment(),AdaptadorListaPlantas.OnClickAdaptadorLi
         listaPlantas.add(listaPlanta)
         adaptador!!.notifyItemChanged(0)
     }
-
-
-
 
 }

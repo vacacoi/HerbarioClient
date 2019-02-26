@@ -101,8 +101,10 @@ class AdaptadorListaPlantas (fragment: Fragment, var listaPlantas:ArrayList<List
         var listaPlanta: ArrayList<ListaPlantas> = ArrayList()
         listaPlanta = ArrayList()
 
-        Log.v("Llega hasta aqui", "Hasta aqui"+listaPlantas[p1].urlImagen)
-        listaPlanta.add(ListaPlantas(listaPlantas[p1].urlImagen,listaPlantas[p1].urlImagen,listaPlantas[p1].urlImagen,listaPlantas[p1].urlImagen,listaPlantas[p1].urlImagen,listaPlantas[p1].urlImagen,listaPlantas[p1].urlImagen,listaPlantas[p1].urlImagen))
+        listaPlanta.add(
+            ListaPlantas(listaPlantas[p1].nombre,listaPlantas[p1].genero,listaPlantas[p1].familia,listaPlantas[p1].subfamilia,
+                listaPlantas[p1].tribu,listaPlantas[p1].especie,listaPlantas[p1].detalle,listaPlantas[p1].autor,
+                listaPlantas[p1].estado,listaPlantas[p1].urlImagen,listaPlantas[p1].email))
 
         val intent = Intent(context, DetallePlantasActivity::class.java)
         intent.putExtra("lista",listaPlanta)

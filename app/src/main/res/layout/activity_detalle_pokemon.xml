@@ -13,16 +13,22 @@
     <RelativeLayout
             android:id="@+id/relative"
             android:layout_width="wrap_content"
-            android:layout_height="494dp">
+            android:layout_height="351dp">
 
         <android.support.v4.view.ViewPager
                 android:id="@+id/pager"
                 android:layout_width="match_parent"
-                android:layout_height="264dp"
+                android:layout_height="191dp"
                 android:layout_alignParentTop="true" android:layout_alignParentBottom="true"
-                android:layout_marginBottom="230dp" android:layout_marginTop="0dp"/>
+                android:layout_marginBottom="303dp" android:layout_marginTop="0dp"/>
 
-        <com.viewpagerindicator.CirclePageIndicator
+        <ImageView
+                android:id="@+id/planta_imagen"
+                android:layout_width="wrap_content"
+                android:layout_height="186dp"
+                android:layout_gravity="center"
+                android:src="@drawable/herbario_uq"/>
+        <!--<com.viewpagerindicator.CirclePageIndicator
                 android:id="@+id/indicator"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
@@ -32,7 +38,7 @@
                 app:centered="true"
                 app:fillColor="#df0623"
                 app:pageColor="#fff"
-                app:snap="false" android:layout_marginBottom="190dp"/>
+                app:snap="false" android:layout_marginBottom="190dp"/>-->
 
 
     </RelativeLayout>
