@@ -81,6 +81,7 @@ class ManagerFireBase private constructor() {
 
         val llave:String = llave()
         dataRef!!.child(llave).child("plantas").setValue(listaPlantas)
+        dataRef!!.child(llave).child("plantas").child("key").setValue(llave)
         return llave
     }
 
@@ -165,10 +166,10 @@ class ManagerFireBase private constructor() {
                     }
                 }else if(p0.child("usuarios").exists() && tipo == 2){
                     Log.d("sE HA CAM","=")
-                    val listaPlantas = p0.child("plantas").getValue(ListaPlantas::class.java)!!
-                    if (sesion!!.getusename().equals(listaPlantas.email)) {
+                    /*val listaPlantas = p0.child("usuarios").getValue(Usuarios::class.java)!!
+                    if (sesion!!.getusename().equals(Usuarios.email)) {
                         listener.actualizarAdaptador(listaPlantas)
-                    }
+                    }*/
                 }
             }
 

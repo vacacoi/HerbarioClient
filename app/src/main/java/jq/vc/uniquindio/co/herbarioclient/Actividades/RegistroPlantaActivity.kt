@@ -96,7 +96,8 @@ class RegistroPlantaActivity : AppCompatActivity() {
                         "Victor",
                         "I",
                         "https://firebasestorage.googleapis.com/v0/b/herbariodb.appspot.com/o/silueta_planta.png?alt=media&token=2b17f4d0-3f5a-413e-b90b-c53abba21422",
-                        sesion!!.getusename()
+                        sesion!!.getusename(),
+                        "null"
                     )
                 )
 
@@ -113,13 +114,13 @@ class RegistroPlantaActivity : AppCompatActivity() {
     fun agregarPlanta(listaPlanta: ListaPlantas) {
 
         val ruta: String = getExternalStorageDirectory().getPath() + "/" + nombre
-        var urlImagen:String?=null
+        var urlImagen: String? = null
         val rutaImagenDb: String = textGeneroTDet.text.toString() + "/" + textFamiliaTDet.text.toString() +
                 "/" + textSubFamiliaTDet.text.toString() + "/" + textTribuTDet.text.toString() +
                 "/" + textEspecieTDet.text.toString() + "/" + nombre
         var llaveImagen = managerFireBase.insetarConLLavePlanta(listaPlanta)
 
-        managerFireBase.uploadImage(ruta, rutaImagenDb,llaveImagen,1)
+        managerFireBase.uploadImage(ruta, rutaImagenDb, llaveImagen, 1)
 
         alertDialog()
 
@@ -175,7 +176,7 @@ class RegistroPlantaActivity : AppCompatActivity() {
     @SuppressLint("ResourceType")
     fun tomarFoto() {
         val rnds = (0..100).random()
-        nombre = llave()+ ".jpg"
+        nombre = llave() + ".jpg"
 
         val intento1 = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
         val foto = File(getExternalStorageDirectory().getPath() + "/" + nombre)

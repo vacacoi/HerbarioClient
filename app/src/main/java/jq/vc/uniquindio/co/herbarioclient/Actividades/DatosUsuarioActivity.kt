@@ -39,11 +39,7 @@ class DatosUsuarioActivity : AppCompatActivity(), ManagerFireBase.onActualizarAd
         val timer = Timer("schedule", true);
 
 // schedule a single event
-
-        timer.schedule(3000) {
-            println("hello world!")
-        }
-
+        
 
         managerFireBase = ManagerFireBase.managerInstance
         managerFireBase.listener = this

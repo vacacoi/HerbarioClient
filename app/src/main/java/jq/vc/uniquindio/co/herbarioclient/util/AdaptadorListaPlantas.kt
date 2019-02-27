@@ -135,7 +135,7 @@ class AdaptadorListaPlantas (fragment: Fragment, var listaPlantas:ArrayList<List
         listaPlanta.add(
             ListaPlantas(listaPlantas[p1].nombre,listaPlantas[p1].genero,listaPlantas[p1].familia,listaPlantas[p1].subfamilia,
                 listaPlantas[p1].tribu,listaPlantas[p1].especie,listaPlantas[p1].detalle,listaPlantas[p1].autor,
-                listaPlantas[p1].estado,listaPlantas[p1].urlImagen,listaPlantas[p1].email))
+                listaPlantas[p1].estado,listaPlantas[p1].urlImagen,listaPlantas[p1].email,listaPlanta[p1].key))
 
         val intent = Intent(context, DetallePlantasActivity::class.java)
         intent.putExtra("lista",listaPlanta)
