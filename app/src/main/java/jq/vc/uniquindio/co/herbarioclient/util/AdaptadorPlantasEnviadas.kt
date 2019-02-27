@@ -63,13 +63,15 @@ class AdaptadorPlantasEnviadas(fragment: Fragment, var listaPlantas: ArrayList<L
         fun bindListaPlantas(listaPlantas: ListaPlantas) {
             res = Resources.getSystem()
             nombre.text = listaPlantas.nombre
-            fecha.text = listaPlantas.genero
+            fecha.text = listaPlantas.fecha
             GetImageToURL().execute(listaPlantas.urlImagen)
 
             if (listaPlantas.estado.equals("A")) {
                 estado.text = "APROBADO"
             } else if (listaPlantas.estado.equals("I")) {
                 estado.text = "PENDIENTE"
+            }else if (listaPlantas.estado.equals("R")) {
+                estado.text = "RECHAZADA"
             }
 
 

@@ -123,11 +123,21 @@ class LoginActivity : AppCompatActivity(), LoaderCallbacks<Cursor>, ManagerFireB
                             sesion!!.setProfesion(usuarios.profesion!!)
                             sesion!!.setKey(usuarios.key!!)
                             sesion!!.setTipo(usuarios.tipo!!)
+                            sesion!!.setEstado(usuarios.estado!!)
                         }
                     }
-                    progressDialog!!.dismiss()
-                    lanzarActividad()
 
+                    if(sesion!!.getEstado().equals("P")){
+                        Toast.makeText(
+                            this,
+                            "Cuenta no ha sido aprobada. Comunicarse con el administrador",
+                            Toast.LENGTH_LONG
+                        ).show()
+                        progressDialog!!.dismiss()
+                    }else {
+                        progressDialog!!.dismiss()
+                        lanzarActividad()
+                    }
                 } else {
                     progressDialog!!.dismiss()
                     // If sign in fails, display a message to the user.
@@ -358,7 +368,7 @@ class LoginActivity : AppCompatActivity(), LoaderCallbacks<Cursor>, ManagerFireB
             android.R.layout.simple_dropdown_item_1line, emailAddressCollection
         )
 
-        usuario.setAdapter(adapter)
+        usuario.setAdapter<ArrayAdapter<String>?>(adapter)
     }
 
     object ProfileQuery {

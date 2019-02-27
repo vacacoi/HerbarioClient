@@ -97,7 +97,8 @@ class RegistroPlantaActivity : AppCompatActivity() {
                         "I",
                         "https://firebasestorage.googleapis.com/v0/b/herbariodb.appspot.com/o/silueta_planta.png?alt=media&token=2b17f4d0-3f5a-413e-b90b-c53abba21422",
                         sesion!!.getusename(),
-                        "null"
+                        "null",
+                        fecha()
                     )
                 )
 
@@ -291,6 +292,15 @@ class RegistroPlantaActivity : AppCompatActivity() {
     fun llave(): String {
         val date = Date()
         val hourdateFormat = SimpleDateFormat("HHmmssddMMyyyy")
+        return hourdateFormat.format(date)
+    }
+
+    /**
+     * Genera la fecha actual.
+     */
+    fun fecha(): String {
+        val date = Date()
+        val hourdateFormat = SimpleDateFormat("dd/MM/yyyy")
         return hourdateFormat.format(date)
     }
 

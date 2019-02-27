@@ -91,7 +91,9 @@ class RegistroActivity : AppCompatActivity() {
                         textProfesionTRes.text.toString(),
                         "https://firebasestorage.googleapis.com/v0/b/herbariodb.appspot.com/o/herbario_uq.png?alt=media&token=dde308df-01c0-4cd3-95c7-1c58a9b166ab",
                         "null",
-                        "R"
+                        "R",
+                        "P"
+
                     )
                 )
 

@@ -36,18 +36,6 @@ class ListaPlantasActivity : AppCompatActivity(), ListaPlantasFragment.OnPlantaS
         managerFireBase = ManagerFireBase.managerInstance
 
 
-      /* listaPlantas = ArrayList()
-        listaPlantas.add(ListaPlantas("Flor", "Flor", "Flor", "Flor", "Flor", "Flor", "Flor", "Vic"))
-        listaPlantas.add(ListaPlantas("Flor1", "Flor1", "Flor1", "Flor1", "Flor1", "Flor1", "Flor1", "Yeye"))
-        listaPlantas.add(ListaPlantas("Flor", "Flor", "Flor", "Flor", "Flor", "Flor", "Flor", "Juli"))
-        listaPlantas.add(ListaPlantas("Flor1", "Flor1", "Flor1", "Flor1", "Flor1", "Flor1", "Flor1", "Mamá"))
-        listaPlantas.add(ListaPlantas("Flor", "Flor", "Flor", "Flor", "Flor", "Flor", "Flor", "Ana"))
-        listaPlantas.add(ListaPlantas("Flor1", "Flor1", "Flor1", "Flor1", "Flor1", "Flor1", "Flor1", "Ibg"))
-
-        Log.d("ValorLista","="+managerFireBase.listaPlantas())
-        val fragmentLista = supportFragmentManager.findFragmentById(R.id.fragmentoListaPlantas) as ListaPlantasFragment
-        fragmentLista.listaPlantas = managerFireBase.listaPlantas()*/
-
 
     }
 

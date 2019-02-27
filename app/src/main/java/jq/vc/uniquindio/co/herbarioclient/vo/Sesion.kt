@@ -74,4 +74,11 @@ class Sesion {
         return prefs.getString("tipo", "")
     }
 
+    fun setEstado(tipo: String){
+        prefs.edit().putString("estado", tipo).commit()
+    }
+    fun getEstado():String{
+        return prefs.getString("estado", "")
+    }
+
 }
