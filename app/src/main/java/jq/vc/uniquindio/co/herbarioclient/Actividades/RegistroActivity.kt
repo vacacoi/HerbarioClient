@@ -68,6 +68,9 @@ class RegistroActivity : AppCompatActivity() {
             }
         })
 
+        /**
+         * Boton que permite registrar un usuarios, envinado los datos a Firebase
+         */
         btn_registrar.setOnClickListener(object : View.OnClickListener {
             override fun onClick(p0: View?) {
 
@@ -86,8 +89,9 @@ class RegistroActivity : AppCompatActivity() {
                         null,
                         textTelefonoTRes.text.toString(),
                         textProfesionTRes.text.toString(),
+                        "https://firebasestorage.googleapis.com/v0/b/herbariodb.appspot.com/o/herbario_uq.png?alt=media&token=dde308df-01c0-4cd3-95c7-1c58a9b166ab",
                         "null",
-                        "null"
+                        "R"
                     )
                 )
 
@@ -153,6 +157,9 @@ class RegistroActivity : AppCompatActivity() {
     }
 
 
+    /**
+     * Permite realizar captura de imagen y guardarla en el dispositivo para después subirla
+     */
     @SuppressLint("ResourceType")
     fun tomarFoto() {
         val rnds = (0..100).random()

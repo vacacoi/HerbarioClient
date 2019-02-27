@@ -2,6 +2,9 @@ package jq.vc.uniquindio.co.herbarioclient.util
 
 import android.content.Context
 import android.content.Intent
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
+import android.os.AsyncTask
 import android.support.v4.app.Fragment
 import android.support.v7.widget.RecyclerView
 import android.util.Log
@@ -9,11 +12,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.ImageView
 import android.widget.TextView
 import jq.vc.uniquindio.co.herbarioclient.Actividades.DetallePlantasActivity
 import jq.vc.uniquindio.co.herbarioclient.R
 import jq.vc.uniquindio.co.herbarioclient.vo.ListaPlantas
 import kotlinx.android.synthetic.main.resumen_lista_plantas.view.*
+import java.io.IOException
+import java.net.HttpURLConnection
+import java.net.URL
 
 
 class AdaptadorListaPlantas (fragment: Fragment, var listaPlantas:ArrayList<ListaPlantas>,context:Context) :RecyclerView.Adapter<AdaptadorListaPlantas.ListaPlantasViewHolder>() {
@@ -40,6 +47,7 @@ class AdaptadorListaPlantas (fragment: Fragment, var listaPlantas:ArrayList<List
         val nombre: TextView = itemView.txtNombre
         val genero: TextView = itemView.txtGenero
         val btnDetalle: Button = itemView.btn_detalle
+        private var fotoPlanta: ImageView = itemView.imgPlanta
 
 
         init {
@@ -50,6 +58,7 @@ class AdaptadorListaPlantas (fragment: Fragment, var listaPlantas:ArrayList<List
         fun bindListaPlantas(listaPlantas: ListaPlantas){
             nombre.text = listaPlantas.nombre
             genero.text = listaPlantas.genero
+            GetImageToURL().execute(listaPlantas.urlImagen)
 
 
 
@@ -58,6 +67,28 @@ class AdaptadorListaPlantas (fragment: Fragment, var listaPlantas:ArrayList<List
             Log.d("El valor es,","+"+v!!.id)
              Log.d("Planta", "Elemento $adapterPosition clickeado ${nombre.text}")
             listener.onClickPosition(adapterPosition)
+        }
+
+        private inner class GetImageToURL : AsyncTask<String, Void, Bitmap>() {
+
+            override fun doInBackground(vararg params: String): Bitmap? {
+                try {
+                    val url = URL(params[0])
+                    val connection = url.openConnection() as HttpURLConnection
+                    connection.setDoInput(true)
+                    connection.connect()
+                    val input = connection.getInputStream()
+                    return BitmapFactory.decodeStream(input)
+                } catch (e: IOException) {
+                    // Log exception
+                    return null
+                }
+
+            }
+
+            override fun onPostExecute(myBitMap: Bitmap) {
+                fotoPlanta!!.setImageBitmap(myBitMap)
+            }
         }
 
 

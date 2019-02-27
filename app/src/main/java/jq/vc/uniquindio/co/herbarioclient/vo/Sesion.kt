@@ -67,4 +67,11 @@ class Sesion {
         return prefs.getString("key", "")
     }
 
+    fun setTipo(tipo: String){
+        prefs.edit().putString("tipo", tipo).commit()
+    }
+    fun getTipo():String{
+        return prefs.getString("tipo", "")
+    }
+
 }

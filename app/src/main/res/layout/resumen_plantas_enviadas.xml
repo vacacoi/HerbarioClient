@@ -17,7 +17,7 @@
             android:padding="15dp">
 
         <ImageView
-                android:id="@+id/imgPlanta"
+                android:id="@+id/imgPlantaEnv"
                 android:layout_width="120dp"
                 android:layout_height="140dp"
                 android:layout_alignParentStart="true"
@@ -28,7 +28,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:layout_toEndOf="@+id/imgPlanta">
+                android:layout_toEndOf="@+id/imgPlantaEnv">
             <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -50,7 +50,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
-                    android:layout_toEndOf="@+id/imgPlanta">
+                    android:layout_toEndOf="@+id/imgPlantaEnv">
                 <TextView
                         android:id="@+id/textfechaTEnv"
                         android:layout_width="wrap_content"
@@ -68,7 +68,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
-                    android:layout_toEndOf="@+id/imgPlanta">
+                    android:layout_toEndOf="@+id/imgPlantaEnv">
                 <TextView
                         android:id="@+id/textEstadoTEnv"
                         android:layout_width="wrap_content"

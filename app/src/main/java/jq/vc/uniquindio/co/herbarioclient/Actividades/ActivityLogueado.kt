@@ -17,6 +17,7 @@ import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import jq.vc.uniquindio.co.herbarioclient.R
+import jq.vc.uniquindio.co.herbarioclient.util.selecionarIdioma
 import jq.vc.uniquindio.co.herbarioclient.vo.Sesion
 import kotlinx.android.synthetic.main.activity_logueado.*
 import kotlinx.android.synthetic.main.app_bar_activity_logueado.*
@@ -86,9 +87,17 @@ class ActivityLogueado : AppCompatActivity(), NavigationView.OnNavigationItemSel
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         when (item.itemId) {
-            R.id.action_settings_logueado -> return true
-            else -> return super.onOptionsItemSelected(item)
+            R.id.action_settings_logueado -> {
+                selecionarIdioma(this)
+                val intent = this.intent
+                intent.flags = (Intent.FLAG_ACTIVITY_CLEAR_TOP or
+                        Intent.FLAG_ACTIVITY_NEW_TASK)
+                this.finish()
+                this.startActivity(intent)
+            }
         }
+
+        return super.onOptionsItemSelected(item)
     }
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
@@ -132,6 +141,9 @@ class ActivityLogueado : AppCompatActivity(), NavigationView.OnNavigationItemSel
         return true
     }
 
+    /**
+     * Permite capturar la imagen desde una url
+     */
     private inner class GetImageToURL : AsyncTask<String, Void, Bitmap>() {
 
         override fun doInBackground(vararg params: String): Bitmap? {

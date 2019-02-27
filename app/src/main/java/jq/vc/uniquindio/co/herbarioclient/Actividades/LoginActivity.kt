@@ -115,7 +115,6 @@ class LoginActivity : AppCompatActivity(), LoaderCallbacks<Cursor>, ManagerFireB
                     sesion!!.setusename(user.email.toString())
                     Log.d("Log", "signInWithEmail:success" + sesion!!.getusename())
                     for (usuarios in listaUsuarios) {
-                        Log.d("UsuariosLog","="+usuarios.correo+""+sesion!!.getusename())
                         if (usuarios.correo.equals(sesion!!.getusename())) {
                             sesion!!.setNombre(usuarios.nombre!!)
                             sesion!!.setApellido(usuarios.apellido!!)
@@ -123,6 +122,7 @@ class LoginActivity : AppCompatActivity(), LoaderCallbacks<Cursor>, ManagerFireB
                             sesion!!.setTelefono(usuarios.telefono!!)
                             sesion!!.setProfesion(usuarios.profesion!!)
                             sesion!!.setKey(usuarios.key!!)
+                            sesion!!.setTipo(usuarios.tipo!!)
                         }
                     }
                     progressDialog!!.dismiss()

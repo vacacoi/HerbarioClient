@@ -95,7 +95,7 @@ class RegistroPlantaActivity : AppCompatActivity() {
                         textDetalleTDet.text.toString(),
                         "Victor",
                         "I",
-                        "null",
+                        "https://firebasestorage.googleapis.com/v0/b/herbariodb.appspot.com/o/silueta_planta.png?alt=media&token=2b17f4d0-3f5a-413e-b90b-c53abba21422",
                         sesion!!.getusename()
                     )
                 )

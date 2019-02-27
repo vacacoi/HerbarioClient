@@ -12,14 +12,15 @@ import android.view.Menu
 import android.view.MenuItem
 import android.widget.TextView
 import jq.vc.uniquindio.co.herbarioclient.R
+import jq.vc.uniquindio.co.herbarioclient.util.selecionarIdioma
 import jq.vc.uniquindio.co.herbarioclient.vo.Sesion
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.app_bar_main.*
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
 
-    var textView: TextView?=null
-    var sesion:Sesion?=null
+    var textView: TextView? = null
+    var sesion: Sesion? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,20 +30,16 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         //textView = findViewById<TextView>(R.id.titulo_principal)
 
         sesion = Sesion(this)
-        if(!sesion!!.getusename().equals("")){
-            Log.d("Apenas","llegue="+sesion!!.getusename())
+        if (!sesion!!.getusename().equals("")) {
+            Log.d("Apenas", "llegue=" + sesion!!.getusename())
             lanzarActividadSession()
             finish()
         }
 
 
-        fab.setOnClickListener { view ->
-            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                .setAction("Action", null).show()
-        }
-
         val toggle = ActionBarDrawerToggle(
-            this, drawer_layout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close)
+            this, drawer_layout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close
+        )
         drawer_layout.addDrawerListener(toggle)
         toggle.syncState()
 
@@ -68,9 +65,18 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         when (item.itemId) {
-            R.id.action_settings -> return true
-            else -> return super.onOptionsItemSelected(item)
+            R.id.action_settings -> {
+                selecionarIdioma(this)
+                val intent = this.intent
+                intent.flags = (Intent.FLAG_ACTIVITY_CLEAR_TOP or
+                        Intent.FLAG_ACTIVITY_NEW_TASK)
+                this.finish()
+                this.startActivity(intent)
+            }
         }
+
+        return super.onOptionsItemSelected(item)
+
     }
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
@@ -79,19 +85,19 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         when (item.itemId) {
 
             R.id.lista_plantas -> {
-                val intent = Intent(this,ListaPlantasActivity::class.java)
-                intent.putExtra("Lista plantas","1")
+                val intent = Intent(this, ListaPlantasActivity::class.java)
+                intent.putExtra("Lista plantas", "1")
                 startActivity(intent)
             }
             R.id.inicia_sesion -> {
-               val intent = Intent(this,LoginActivity::class.java)
-                intent.putExtra("Iniciar Sesion","1")
+                val intent = Intent(this, LoginActivity::class.java)
+                intent.putExtra("Iniciar Sesion", "1")
                 startActivity(intent)
 
             }
             R.id.registro -> {
-                val intent = Intent(this,RegistroActivity::class.java)
-                intent.putExtra("Iniciar Sesion","1")
+                val intent = Intent(this, RegistroActivity::class.java)
+                intent.putExtra("Iniciar Sesion", "1")
                 startActivity(intent)
             }
 
@@ -105,9 +111,9 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     /**
      * Si el usuario no ha cerrado sesión, carga la actvidad principal
      */
-    fun lanzarActividadSession(){
-        val intent = Intent(this,ActivityLogueado::class.java)
-        intent.putExtra("Iniciar Sesion","1")
+    fun lanzarActividadSession() {
+        val intent = Intent(this, ActivityLogueado::class.java)
+        intent.putExtra("Iniciar Sesion", "1")
         startActivity(intent)
     }
 
