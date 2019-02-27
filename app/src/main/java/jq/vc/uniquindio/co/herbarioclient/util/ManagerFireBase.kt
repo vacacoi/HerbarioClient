@@ -28,10 +28,12 @@ import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.AuthResult
 import com.google.android.gms.tasks.OnCompleteListener
 import android.R.attr.password
+import android.accessibilityservice.GestureDescription
 import android.app.ProgressDialog
 import android.support.v7.app.AlertDialog
 import com.google.firebase.auth.UserProfileChangeRequest
 import jq.vc.uniquindio.co.herbarioclient.vo.Sesion
+import kotlin.collections.ArrayList
 
 
 class ManagerFireBase private constructor() {
@@ -77,14 +79,17 @@ class ManagerFireBase private constructor() {
 
     fun insetarConLLavePlanta(listaPlantas: ListaPlantas): String {
 
-        dataRef!!.child(llave()).child("plantas").setValue(listaPlantas)
-        return llave()
+        val llave:String = llave()
+        dataRef!!.child(llave).child("plantas").setValue(listaPlantas)
+        return llave
     }
 
     fun insetarConLLaveUsuario(usuarios: Usuarios): String {
 
-        dataRef!!.child(llave()).child("usuarios").setValue(usuarios)
-        return llave()
+        val llave:String = llave()
+        dataRef!!.child(llave).child("usuarios").setValue(usuarios)
+        dataRef!!.child(llave).child("usuarios").child("key").setValue(llave)
+        return llave
     }
 
     /**
@@ -127,6 +132,14 @@ class ManagerFireBase private constructor() {
         return downloadUri
     }
 
+    fun updateUser(nombre:String,apellido:String,telefono:String,profesion:String,key:String){
+
+        dataRef!!.database.reference.child(key).child("usuarios").child("nombre").setValue(nombre)
+        dataRef!!.database.reference.child(key).child("usuarios").child("apellido").setValue(apellido)
+        dataRef!!.database.reference.child(key).child("usuarios").child("telefono").setValue(telefono)
+        dataRef!!.database.reference.child(key).child("usuarios").child("profesion").setValue(profesion)
+
+    }
 
     /**
      * Método que permite consultar en tiempo real a firebase y traer los datos almacenados
@@ -150,6 +163,12 @@ class ManagerFireBase private constructor() {
                     if (listaPlantas != null && listaPlantas!!.estado == "A") {
                         listener.actualizarAdaptador(listaPlantas)
                     }
+                }else if(p0.child("usuarios").exists() && tipo == 2){
+                    Log.d("sE HA CAM","=")
+                    val listaPlantas = p0.child("plantas").getValue(ListaPlantas::class.java)!!
+                    if (sesion!!.getusename().equals(listaPlantas.email)) {
+                        listener.actualizarAdaptador(listaPlantas)
+                    }
                 }
             }
 
@@ -163,7 +182,6 @@ class ManagerFireBase private constructor() {
 
                 } else if (p0.child("usuarios").exists() && tipo == 2) {
                     val listaUsuario = p0.child("usuarios").getValue(Usuarios::class.java)!!
-
                     listener.cedredenciales(listaUsuario)
 
                 } else if (p0.child("plantas").exists() && tipo == 3) {

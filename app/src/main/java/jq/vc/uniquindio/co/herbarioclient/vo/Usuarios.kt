@@ -14,6 +14,7 @@ class Usuarios() : Parcelable, Serializable {
     var telefono: String? = null
     var profesion: String? = null
     var urlImagenPerfil: String? = null
+    var key: String? = null
 
     constructor(parcel: Parcel) : this() {
         nombre = parcel.readString()
@@ -22,6 +23,7 @@ class Usuarios() : Parcelable, Serializable {
         telefono = parcel.readString()
         profesion = parcel.readString()
         urlImagenPerfil = parcel.readString()
+        key = parcel.readString()
     }
 
 
@@ -32,7 +34,8 @@ class Usuarios() : Parcelable, Serializable {
         pass: String?,
         telefono: String?,
         profesion: String?,
-        urlImagenPerfil: String?
+        urlImagenPerfil: String?,
+        key: String?
     ) : this() {
 
         this.nombre = nombre
@@ -42,6 +45,7 @@ class Usuarios() : Parcelable, Serializable {
         this.telefono = telefono
         this.profesion = profesion
         this.urlImagenPerfil = urlImagenPerfil
+        this.key = key
 
     }
 
@@ -55,6 +59,7 @@ class Usuarios() : Parcelable, Serializable {
         parcel.writeString(telefono)
         parcel.writeString(profesion)
         parcel.writeString(urlImagenPerfil)
+        parcel.writeString(key)
     }
 
     override fun describeContents(): Int {

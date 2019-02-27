@@ -46,4 +46,25 @@ class Sesion {
         return prefs.getString("url", "")
     }
 
+    fun setTelefono(telefono: String){
+        prefs.edit().putString("telefono", telefono).commit()
+    }
+    fun getTelefono():String{
+        return prefs.getString("telefono", "")
+    }
+
+    fun setProfesion(profesion: String){
+        prefs.edit().putString("profesion", profesion).commit()
+    }
+    fun getProfesion():String{
+        return prefs.getString("profesion", "")
+    }
+
+    fun setKey(key: String){
+        prefs.edit().putString("key", key).commit()
+    }
+    fun getKey():String{
+        return prefs.getString("key", "")
+    }
+
 }

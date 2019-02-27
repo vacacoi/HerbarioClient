@@ -17,9 +17,12 @@
             android:supportsRtl="true"
             android:theme="@style/AppTheme">
         <activity
+                android:name=".Actividades.DatosUsuarioActivity"
+                android:label="@string/title_activity_datos_usuario">
+        </activity>
+        <activity
                 android:name=".Actividades.PlantaEnviadasActivity"
-                android:label="@string/title_activity_planta_enviadas"
-                >
+                android:label="@string/title_activity_planta_enviadas">
         </activity>
         <activity
                 android:name=".Actividades.RegistroActivity"

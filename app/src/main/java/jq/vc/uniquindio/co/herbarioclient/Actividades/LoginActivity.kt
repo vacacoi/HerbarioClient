@@ -120,6 +120,9 @@ class LoginActivity : AppCompatActivity(), LoaderCallbacks<Cursor>, ManagerFireB
                             sesion!!.setNombre(usuarios.nombre!!)
                             sesion!!.setApellido(usuarios.apellido!!)
                             sesion!!.setUrlFoto(usuarios.urlImagenPerfil!!)
+                            sesion!!.setTelefono(usuarios.telefono!!)
+                            sesion!!.setProfesion(usuarios.profesion!!)
+                            sesion!!.setKey(usuarios.key!!)
                         }
                     }
                     progressDialog!!.dismiss()

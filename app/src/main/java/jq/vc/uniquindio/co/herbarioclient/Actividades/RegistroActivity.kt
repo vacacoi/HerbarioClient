@@ -86,6 +86,7 @@ class RegistroActivity : AppCompatActivity() {
                         null,
                         textTelefonoTRes.text.toString(),
                         textProfesionTRes.text.toString(),
+                        "null",
                         "null"
                     )
                 )

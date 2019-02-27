@@ -40,7 +40,8 @@ class ActivityLogueado : AppCompatActivity(), NavigationView.OnNavigationItemSel
 
         nombre = sesion!!.getNombre()
         apellido = sesion!!.getApellido()
-        if (!!sesion!!.getUrlFoto().equals(null)) {
+        Log.d("La url es","="+sesion!!.getUrlFoto().isNullOrBlank())
+        if (sesion!!.getUrlFoto().isBlank()) {
             GetImageToURL().execute(sesion!!.getUrlFoto())
         }
 
@@ -110,6 +111,9 @@ class ActivityLogueado : AppCompatActivity(), NavigationView.OnNavigationItemSel
                 startActivity(intent)
             }
             R.id.datos_cuenta -> {
+                val intent = Intent(this, DatosUsuarioActivity::class.java)
+                intent.putExtra("datos_usuario", "1")
+                startActivity(intent)
 
 
             }

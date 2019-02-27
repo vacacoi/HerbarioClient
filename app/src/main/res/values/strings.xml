@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">HerbarioUQ</string>
+    <string name="app_name">HerbarioUQCliente</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="nav_header_title">HerbarioUQ</string>
@@ -63,7 +63,7 @@
     <string name="estado">Estado:</string>
 
 
-        <!--Datos de usuario -->
+    <!--Datos de usuario -->
     <string name="datos_correo">Correo</string>
     <string name="datos_nombre">Nombre:</string>
     <string name="datos_apellido">Apellido</string>
