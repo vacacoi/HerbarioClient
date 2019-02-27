@@ -41,9 +41,9 @@ class ActivityLogueado : AppCompatActivity(), NavigationView.OnNavigationItemSel
         nombre = sesion!!.getNombre()
         apellido = sesion!!.getApellido()
         Log.d("La url es","="+sesion!!.getUrlFoto().isNullOrBlank())
-        if (sesion!!.getUrlFoto().isBlank()) {
+
             GetImageToURL().execute(sesion!!.getUrlFoto())
-        }
+
 
         val toggle = ActionBarDrawerToggle(
             this,
