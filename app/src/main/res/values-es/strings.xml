@@ -7,7 +7,7 @@
     <string name="nav_header_subtitle"></string>
     <string name="nav_header_admin">Hola de vuelta recolector</string>
     <string name="nav_header_desc">Navigation header</string>
-    <string name="action_settings">Settings</string>
+    <string name="action_settings">Cambiar idioma</string>
     <string name="titulo_principal">Sesión recolector</string>
 
     <!--cardView menú principal -->

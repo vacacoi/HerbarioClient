@@ -5,90 +5,90 @@
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="nav_header_title">HerbarioUQ</string>
     <string name="nav_header_subtitle"></string>
-    <string name="nav_header_admin">Hola de vuelta recolector</string>
+    <string name="nav_header_admin">Hello back collector</string>
     <string name="nav_header_desc">Navigation header</string>
-    <string name="action_settings">Settings</string>
-    <string name="titulo_principal">Sesión recolector</string>
+    <string name="action_settings">Change languaje</string>
+    <string name="titulo_principal">Collection sessionr</string>
 
     <!--cardView menú principal -->
     <string name="titulo">HERBARIO UNIQUINDIO</string>
-    <string name="subtitulo">Sesión de Invitados</string>
+    <string name="subtitulo">Guest Session</string>
 
     <!--Menú principal -->
-    <string name="lista_plantas">Lista de plantas</string>
+    <string name="lista_plantas">List of plants</string>
     <string name="inicia_sesion">Sign in</string>
-    <string name="registro">Registrarse</string>
+    <string name="registro">Check in</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="title_activity_loguin_activity">Loguin_activity</string>
+    <string name="title_activity_loguin_activity">Loguin</string>
     <string name="title_home">Home</string>
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
-    <string name="title_activity_loguin">LoguinActivity</string>
+    <string name="title_activity_loguin">Loguin</string>
     <string name="title_activity_login">Sign in</string>
-    <string name="ingresar_planta">Ingresar planta</string>>
-    <string name="plantas_ingresadas">Lista plantas ingresadas</string>
-    <string name="datos">Datos de la cuenta</string>
-    <string name="salir">Salir</string>
+    <string name="ingresar_planta">Enter plant</string>>
+    <string name="plantas_ingresadas">List of plants entered</string>
+    <string name="datos">Account data</string>
+    <string name="salir">Exit</string>
 
     <!-- Strings related to login -->
-    <string name="prompt_usuario">Usuario</string>
-    <string name="prompt_password">Contraseña</string>
-    <string name="action_sign_in">Aceptar</string>
-    <string name="action_registro">Registrarse</string>
+    <string name="prompt_usuario">User</string>
+    <string name="prompt_password">Password</string>
+    <string name="action_sign_in">To accept</string>
+    <string name="action_registro">Check in</string>
     <string name="action_sign_in_short">Sign in</string>
-    <string name="olvido_contrasenia">¿Ha olvidado su contraseña?</string>
+    <string name="olvido_contrasenia">Have you forgotten your password?</string>
     <!--<string name="error_invalid_email">This email address is invalid</string>
     <string name="error_invalid_password">This password is too short</string>-->
     <string name="error_incorrect_password">This password is incorrect</string>
-    <string name="error_field_required">No dejar este campo vacío</string>
+    <string name="error_field_required">Do not leave this field empty</string>
     <string name="permission_rationale">"Contacts permissions are needed for providing email
         completions."
     </string>
 
 
-    <string name="title_activity_lista_plantas">Lista de plantas</string>
+    <string name="title_activity_lista_plantas">list of plants</string>
     <string name="title_activity_logueado">Herbario UQ</string>
-    <string name="title_activity_gestion_user">Solicitudes de Usuarios</string>
-    <string name="title_activity_datos_usuario">Modificar Datos</string>
+    <string name="title_activity_gestion_user">User Requests</string>
+    <string name="title_activity_datos_usuario">Modify data</string>
 
     <!--String de detalle planta -->
-    <string name="detalle_genero">Género:</string>
-    <string name="detalle_familia">Familia:</string>
-    <string name="detalle_subfamilia">Subfamiia:</string>
-    <string name="detalle_tribu">Tribu:</string>
-    <string name="detalle_especie">Especie:</string>
-    <string name="detalle_detalle">Detalle:</string>
-    <string name="detalle_autor">Autor:</string>
-    <string name="fecha_envio">Fecha envío:</string>
-    <string name="estado">Estado:</string>
+    <string name="detalle_genero">Gender:</string>
+    <string name="detalle_familia">Family</string>
+    <string name="detalle_subfamilia">Subfamily:</string>
+    <string name="detalle_tribu">Tribe:</string>
+    <string name="detalle_especie">Species:</string>
+    <string name="detalle_detalle">Detail:</string>
+    <string name="detalle_autor">Author:</string>
+    <string name="fecha_envio">Send date:</string>
+    <string name="estado">State:</string>
 
 
     <!--Datos de usuario -->
-    <string name="datos_correo">Correo</string>
-    <string name="datos_nombre">Nombre:</string>
-    <string name="datos_apellido">Apellido</string>
-    <string name="datos_telefono">Teléfono</string>
-    <string name="datos_profesion">Profesión</string>
-    <string name="datos_foto">Fotografía</string>
-    <string name="title_activity_plantas_pend">Plantas enviadas</string>
-    <string name="title_activity_detalle_pokemon">Detalle Pokemón</string>
+    <string name="datos_correo">email</string>
+    <string name="datos_nombre">Name:</string>
+    <string name="datos_apellido">Surname</string>
+    <string name="datos_telefono">Phone</string>
+    <string name="datos_profesion">Profession</string>
+    <string name="datos_foto">Photography</string>
+    <string name="title_activity_plantas_pend">Plants sent</string>
+    <string name="title_activity_detalle_pokemon">Plant Detail</string>
     <!-- Strings related to login -->
     <string name="prompt_email">Email</string>
     <string name="error_invalid_email">This email address is invalid</string>
     <string name="error_invalid_password">This password is too short</string>
-    <string name="title_activity_registro_planta">RegistroPlantaActivity</string>
+    <string name="title_activity_registro_planta">Plant Registration</string>
 
     <!-- Agregar plantas -->
-    <string name="btn_enviar">Enviar</string>
-    <string name="btn_registra">Registrar</string>
-    <string name="btn_cancelar">Cancelar</string>
-    <string name="btn_tomar">Tomar Foto</string>
-    <string name="permission_necessary">permisos</string>
+    <string name="btn_enviar">Submit</string>
+    <string name="btn_registra">To register</string>
+    <string name="btn_cancelar">Cancel</string>
+    <string name="btn_tomar">Take photo</string>
+    <string name="permission_necessary">permits</string>
     <string name="storage_permission_is_encessary_to_wrote_event">permisos2</string>
-    <string name="title_activity_registro">RegistroActivity</string>
-    <string name="title_activity_planta_enviadas">Lista de plantas enviadas</string>
+    <string name="title_activity_registro">Registro</string>
+    <string name="title_activity_planta_enviadas">List of plants sent</string>
 
     <string name="aprobado">APROBADO</string>
     <string name="pendiente">PENDIENTE</string>
